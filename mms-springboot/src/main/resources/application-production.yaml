@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mms?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+
+
+  #  设置日志
+logging:
+  level:
+    root: warn
+    com.moumouzhandui.mms: info
+  file:
+    name: mms-springboot/log/mms-production.log
