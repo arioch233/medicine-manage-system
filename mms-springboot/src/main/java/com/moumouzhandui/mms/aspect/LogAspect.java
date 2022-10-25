@@ -13,6 +13,13 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * AspectJ 日志处理模块配置
+ *
+ * @author 冷血毒舌
+ * @description AspectJ 日志处理模块
+ * @createDate 2021-10-19 12:02:55
+ */
 @Aspect
 @Component
 public class LogAspect {

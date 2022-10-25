@@ -22,3 +22,6 @@ mms-springboot/.mvn
 mms-springboot/mvnw.cmd
 mms-springboot/mvnw
 mms-springboot/log/mms*
+mms-springboot/files/images/*
+
+

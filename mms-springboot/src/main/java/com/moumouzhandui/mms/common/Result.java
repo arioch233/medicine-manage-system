@@ -7,8 +7,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 /**
  * 接口统一返回的包装类
+ *
+ * @author 冷血毒舌
+ * @description 接口统一返回的包装类
+ * @createDate 2021-10-21 00:10:57
  */
 @ApiModel(description = "返回包装类")
 @Data

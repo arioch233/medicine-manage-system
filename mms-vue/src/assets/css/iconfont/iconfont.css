@@ -1,0 +1,167 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 3663482 */
+  src: url('iconfont.woff2?t=1666533670692') format('woff2'),
+       url('iconfont.woff?t=1666533670692') format('woff'),
+       url('iconfont.ttf?t=1666533670692') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-fenlei:before {
+  content: "\e71b";
+}
+
+.icon-yiliaoqixie:before {
+  content: "\e63b";
+}
+
+.icon-kuozhan:before {
+  content: "\e621";
+}
+
+.icon-gongdanguanli:before {
+  content: "\e68c";
+}
+
+.icon-jinhuo:before {
+  content: "\e602";
+}
+
+.icon-kuozhan1:before {
+  content: "\e65f";
+}
+
+.icon--yiliao-yaopin:before {
+  content: "\e62c";
+}
+
+.icon-website:before {
+  content: "\e606";
+}
+
+.icon-xitong:before {
+  content: "\e67c";
+}
+
+.icon-caidan1:before {
+  content: "\e61b";
+}
+
+.icon-quanxian:before {
+  content: "\e725";
+}
+
+.icon-shouye-shouye:before {
+  content: "\e61a";
+}
+
+.icon-wenjian:before {
+  content: "\e600";
+}
+
+.icon-wenjianxiazai:before {
+  content: "\e613";
+}
+
+.icon-role:before {
+  content: "\e60b";
+}
+
+.icon-remove-role:before {
+  content: "\e60c";
+}
+
+.icon-add-role:before {
+  content: "\e60d";
+}
+
+.icon-setting-role:before {
+  content: "\e60f";
+}
+
+.icon-edit-role:before {
+  content: "\e610";
+}
+
+.icon-API:before {
+  content: "\e740";
+}
+
+.icon-tupiantianjia:before {
+  content: "\ec7d";
+}
+
+.icon-tupian:before {
+  content: "\e8ba";
+}
+
+.icon-dian:before {
+  content: "\ec1e";
+}
+
+.icon-s-fold:before {
+  content: "\e676";
+}
+
+.icon-s-unfold:before {
+  content: "\e678";
+}
+
+.icon-yemian:before {
+  content: "\e615";
+}
+
+.icon-logout:before {
+  content: "\e63a";
+}
+
+.icon-menu:before {
+  content: "\e6c1";
+}
+
+.icon-xiaoxi:before {
+  content: "\e62f";
+}
+
+.icon-yiliaoqicai:before {
+  content: "\e7ce";
+}
+
+.icon-zhuce:before {
+  content: "\e71c";
+}
+
+.icon-gerenxinxi:before {
+  content: "\e617";
+}
+
+.icon-menu1:before {
+  content: "\e620";
+}
+
+.icon-quanxianguanli-:before {
+  content: "\e61c";
+}
+
+.icon-essential-information:before {
+  content: "\e612";
+}
+
+.icon-caidan:before {
+  content: "\e60e";
+}
+
+.icon-denglu:before {
+  content: "\e7c8";
+}
+
+.icon-yiliao_yaoji:before {
+  content: "\e642";
+}
+
