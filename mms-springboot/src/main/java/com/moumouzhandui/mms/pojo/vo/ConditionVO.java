@@ -31,4 +31,12 @@ public class ConditionVO {
      */
     @ApiModelProperty(name = "keywords", value = "搜索内容", dataType = "String")
     private String keywords;
+
+    /**
+     * 分类类型
+     * 0：药品分类
+     * 1：器材分类
+     */
+    @ApiModelProperty(name = "categoryType", value = "分类类型", dataType = "Integer")
+    private Integer categoryType;
 }

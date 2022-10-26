@@ -51,8 +51,8 @@
     >
       <!-- 表格列 -->
       <el-table-column type="selection" width="55"/>
-      <el-table-column prop="drugCategoryName" label="药品分类名" width="200" align="center"/>
-      <el-table-column prop="drugCategoryLabel" label="药品分类描述" align="center"/>
+      <el-table-column prop="categoryName" label="药品分类名" width="200" align="center"/>
+      <el-table-column prop="categoryDescription" label="药品分类描述" align="center"/>
       <el-table-column
           prop="createTime"
           label="创建时间"
@@ -72,7 +72,7 @@
       >
         <template slot-scope="scope">
           <i class="el-icon-time" style="margin-right:5px"/>
-          {{ scope.row.updateTime | dateTime }}
+          {{ (scope.row.updateTime ? scope.row.updateTime : scope.row.createTime)| dateTime }}
         </template>
       </el-table-column>
       <!-- 列操作 -->
@@ -113,7 +113,7 @@
           <el-input v-model="categoryForm.categoryName" style="width:300px"/>
         </el-form-item>
         <el-form-item label="描述">
-          <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" v-model="categoryForm.categoryLabel"
+          <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" v-model="categoryForm.categoryDescription"
                     style="width:300px"/>
         </el-form-item>
       </el-form>
@@ -124,7 +124,19 @@
         </el-button>
       </div>
     </el-dialog>
-
+    <!-- 批量删除对话框 -->
+    <el-dialog :visible.sync="isDelete" width="30%">
+      <div class="dialog-title-container" slot="title">
+        <i class="el-icon-warning" style="color:#ff9900"/>提示
+      </div>
+      <div style="font-size:1rem">是否删除选中项？</div>
+      <div slot="footer">
+        <el-button @click="isDelete = false">取 消</el-button>
+        <el-button type="primary" @click="deleteCategory(null)">
+          确 定
+        </el-button>
+      </div>
+    </el-dialog>
   </el-card>
 </template>
 
@@ -147,7 +159,8 @@ export default {
       categoryModel: false,
       categoryForm: {
         categoryName: "",
-        categoryLabel: "",
+        categoryDescription: "",
+        categoryType: 0
       }
     }
   },
@@ -171,23 +184,71 @@ export default {
       });
     },
     listDrugCategories() {
-      this.drugCategoryList = [
-        {
-          drugCategoryName: "感冒",
-          drugCategoryLabel: "xxxxxxx"
+      this.request.get("/category/all", {
+        params: {
+          current: this.current,
+          size: this.size,
+          keywords: this.keywords,
+          categoryType: 0
         }
-      ];
-      this.loading = false;
+      }).then(data => {
+        this.drugCategoryList = data.data.records;
+        this.count = data.data.count;
+        this.loading = false;
+      })
     },
     openModel(category) {
       this.$refs.categoryTitle.innerHTML = category ? "修改分类" : "新增分类";
+      if (category != null) {
+        this.categoryForm = JSON.parse(JSON.stringify(category));
+      } else {
+        this.categoryForm = {
+          categoryName: "",
+          categoryDescription: "",
+          categoryType: 0
+        };
+      }
       this.categoryModel = true;
     },
     saveOrUpdate() {
-
+      this.request.post("/category/update", this.categoryForm).then(data => {
+        if (data.code === 200) {
+          this.$notify.success({
+            title: "成功",
+            message: data.message
+          });
+          this.listDrugCategories();
+        } else {
+          this.$notify.error({
+            title: "失败",
+            message: data.message
+          });
+        }
+        this.categoryModel = false;
+      });
     },
     deleteCategory(id) {
-
+      let param = {};
+      if (id == null) {
+        param = {data: this.drugCategoryIdList};
+      } else {
+        param = {data: [id]};
+      }
+      this.request.delete("/category/delete", param).then(data => {
+        if (data.code === 200) {
+          this.$notify.success({
+            title: "成功",
+            message: data.message
+          });
+          this.listDrugCategories();
+        } else {
+          this.$notify.error({
+            title: "失败",
+            message: data.message
+          });
+        }
+        this.isDelete = false;
+      });
     }
   }
 }

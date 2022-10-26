@@ -50,7 +50,11 @@ public enum StatusCodeEnum {
     /**
      * 文件保存异常
      */
-    FILE_SAVE(703, "文件保存异常");
+    FILE_SAVE(703, "文件保存异常"),
+    /**
+     * 该分类已存在
+     */
+    CATEGORY(401, "该分类已存在");
 
 
     /**

@@ -20,7 +20,7 @@ export function generateMenu(data) {
                 });
             }
         });
-        console.log(userMenuList)
+        // console.log(userMenuList)
         // 添加侧边栏菜单
         store.commit("saveUserMenuList", userMenuList);
         // 添加菜单到路由

@@ -51,8 +51,8 @@
     >
       <!-- 表格列 -->
       <el-table-column type="selection" width="55"/>
-      <el-table-column prop="instrumentCategoryName" label="器材分类名" width="200" align="center"/>
-      <el-table-column prop="instrumentCategoryLabel" label="器材分类描述" align="center"/>
+      <el-table-column prop="categoryName" label="器材分类名" width="200" align="center"/>
+      <el-table-column prop="categoryDescription" label="器材分类描述" align="center"/>
       <el-table-column
           prop="createTime"
           label="创建时间"
@@ -72,7 +72,7 @@
       >
         <template slot-scope="scope">
           <i class="el-icon-time" style="margin-right:5px"/>
-          {{ scope.row.updateTime | dateTime }}
+          {{ (scope.row.updateTime ? scope.row.updateTime : scope.row.createTime)| dateTime }}
         </template>
       </el-table-column>
       <!-- 列操作 -->
@@ -106,24 +106,37 @@
         layout="total, sizes, prev, pager, next, jumper"
     />
     <!--  分类对话框  -->
-    <el-dialog :visible.sync="categoryModel" width="30%">
+    <el-dialog :visible.sync="instrumentModel" width="30%">
       <div class="dialog-title-container" slot="title" ref="categoryTitle"/>
       <el-form label-width="80px" size="medium" :model="instrumentForm">
         <el-form-item label="分类名">
-          <el-input v-model="instrumentForm.instrumentName" style="width:300px"/>
+          <el-input v-model="instrumentForm.categoryName" style="width:300px"/>
         </el-form-item>
         <el-form-item label="描述">
-          <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" v-model="instrumentForm.instrumentLabel" style="width:300px"/>
+          <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" v-model="instrumentForm.categoryDescription"
+                    style="width:300px"/>
         </el-form-item>
       </el-form>
       <div slot="footer">
-        <el-button @click="categoryModel = false">取 消</el-button>
+        <el-button @click="instrumentModel = false">取 消</el-button>
         <el-button type="primary" @click="saveOrUpdate">
           确 定
         </el-button>
       </div>
     </el-dialog>
-
+    <!-- 批量删除对话框 -->
+    <el-dialog :visible.sync="isDelete" width="30%">
+      <div class="dialog-title-container" slot="title">
+        <i class="el-icon-warning" style="color:#ff9900"/>提示
+      </div>
+      <div style="font-size:1rem">是否删除选中项？</div>
+      <div slot="footer">
+        <el-button @click="isDelete = false">取 消</el-button>
+        <el-button type="primary" @click="deleteCategory(null)">
+          确 定
+        </el-button>
+      </div>
+    </el-dialog>
   </el-card>
 </template>
 
@@ -143,10 +156,11 @@ export default {
       count: 0,
       instrumentCategoryIdList: [],
       instrumentCategoryList: [],
-      categoryModel: false,
+      instrumentModel: false,
       instrumentForm: {
-        instrumentName: "",
-        instrumentLabel: "",
+        categoryName: "",
+        categoryDescription: "",
+        categoryType: 1
       }
     }
   },
@@ -170,23 +184,71 @@ export default {
       });
     },
     listInstrumentCategories() {
-      this.instrumentCategoryList = [
-        {
-          instrumentCategoryName: "消毒",
-          instrumentCategoryLabel: "xxxxxxx"
+      this.request.get("/category/all", {
+        params: {
+          current: this.current,
+          size: this.size,
+          keywords: this.keywords,
+          categoryType: 1
         }
-      ];
-      this.loading = false;
+      }).then(data => {
+        this.instrumentCategoryList = data.data.records;
+        this.count = data.data.count;
+        this.loading = false;
+      })
     },
     openModel(category) {
       this.$refs.categoryTitle.innerHTML = category ? "修改分类" : "新增分类";
-      this.categoryModel = true;
+      if (category != null) {
+        this.instrumentForm = JSON.parse(JSON.stringify(category));
+      } else {
+        this.instrumentForm = {
+          categoryName: "",
+          categoryDescription: "",
+          categoryType: 1
+        };
+      }
+      this.instrumentModel = true;
     },
     saveOrUpdate() {
-
+      this.request.post("/category/update", this.instrumentForm).then(data => {
+        if (data.code === 200) {
+          this.$notify.success({
+            title: "成功",
+            message: data.message
+          });
+          this.listInstrumentCategories();
+        } else {
+          this.$notify.error({
+            title: "失败",
+            message: data.message
+          });
+        }
+        this.instrumentModel = false;
+      });
     },
     deleteCategory(id) {
-
+      let param = {};
+      if (id == null) {
+        param = {data: this.instrumentCategoryIdList};
+      } else {
+        param = {data: [id]};
+      }
+      this.request.delete("/category/delete", param).then(data => {
+        if (data.code === 200) {
+          this.$notify.success({
+            title: "成功",
+            message: data.message
+          });
+          this.listInstrumentCategories();
+        } else {
+          this.$notify.error({
+            title: "失败",
+            message: data.message
+          });
+        }
+        this.isDelete = false;
+      });
     }
   }
 }
