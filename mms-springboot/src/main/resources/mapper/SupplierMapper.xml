@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moumouzhandui.mms.mapper.SupplierMapper">
+
+    <resultMap id="BaseResultMap" type="com.moumouzhandui.mms.entity.Supplier">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="supplierName" column="supplier_name" jdbcType="VARCHAR"/>
+            <result property="supplierPrincipal" column="supplier_principal" jdbcType="VARCHAR"/>
+            <result property="supplierContract" column="supplier_contract" jdbcType="VARCHAR"/>
+            <result property="supplierEmail" column="supplier_email" jdbcType="VARCHAR"/>
+            <result property="supplierAddress" column="supplier_address" jdbcType="VARCHAR"/>
+            <result property="supplierBank" column="supplier_bank" jdbcType="VARCHAR"/>
+            <result property="supplierBankCard" column="supplier_bank_card" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,supplier_name,supplier_principal,
+        supplier_contract,supplier_email,supplier_address,
+        supplier_bank,supplier_bank_card,create_time,
+        update_time
+    </sql>
+</mapper>
