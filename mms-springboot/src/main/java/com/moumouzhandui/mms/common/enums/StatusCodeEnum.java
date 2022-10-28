@@ -59,7 +59,11 @@ public enum StatusCodeEnum {
     /**
      * 该供货商已存在
      */
-    SUPPLIER(402,"该供货商已存在");
+    SUPPLIER(402, "该供货商已存在"),
+    /**
+     * 该药品已存在
+     */
+    DRUG(403, "该药品已存在");
 
 
     /**
