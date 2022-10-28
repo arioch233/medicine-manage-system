@@ -33,7 +33,7 @@ export default new Vuex.Store({
          */
         saveTab(state, tab) { // 保存面包屑标签
             if (state.tabList.findIndex(item => item.path === tab.path) === -1) {
-                console.log(tab)
+                // console.log(tab)
                 state.tabList.push({
                     name: tab.name,
                     path: tab.path,

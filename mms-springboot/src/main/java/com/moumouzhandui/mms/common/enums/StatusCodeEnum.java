@@ -54,7 +54,12 @@ public enum StatusCodeEnum {
     /**
      * 该分类已存在
      */
-    CATEGORY(401, "该分类已存在");
+    CATEGORY(401, "该分类已存在"),
+
+    /**
+     * 该供货商已存在
+     */
+    SUPPLIER(402,"该供货商已存在");
 
 
     /**
