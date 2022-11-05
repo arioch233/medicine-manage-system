@@ -21,4 +21,6 @@ public interface CategoryService extends IService<Category> {
     void updateCategory(CategoryVO categoryVO);
 
     void deleteCategory(List<Integer> categoryIds);
+
+    List<CategoryDTO> listCategoryOptions(ConditionVO conditionVO);
 }

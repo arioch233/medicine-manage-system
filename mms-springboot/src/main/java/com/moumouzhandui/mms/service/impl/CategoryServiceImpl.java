@@ -69,6 +69,13 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
     public void deleteCategory(List<Integer> categoryIds) {
         this.removeBatchByIds(categoryIds);
     }
+
+    @Override
+    public List<CategoryDTO> listCategoryOptions(ConditionVO conditionVO) {
+        return BeanCopyUtils.copyList(categoryMapper.selectList(new LambdaQueryWrapper<Category>()
+                        .eq(Category::getType, conditionVO.getCategoryType()))
+                , CategoryDTO.class);
+    }
 }
 
 

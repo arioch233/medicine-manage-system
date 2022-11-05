@@ -63,5 +63,16 @@ public class CategoryController {
         return Result.success();
     }
 
+    /**
+     * 获取分类选项列表
+     *
+     * @param conditionVO
+     * @return
+     */
+    @ApiOperation(value = "获取分类选项列表")
+    @GetMapping("/options")
+    public Result listCategoryOptions(ConditionVO conditionVO) {
+        return Result.success(categoryService.listCategoryOptions(conditionVO));
+    }
 
 }

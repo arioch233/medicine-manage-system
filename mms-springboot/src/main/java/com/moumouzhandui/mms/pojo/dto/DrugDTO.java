@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * @author 冷血毒舌
@@ -21,6 +22,11 @@ public class DrugDTO {
      * 药品id
      */
     private Integer id;
+
+    /**
+     * 药品封图
+     */
+    private String drugCover;
 
     /**
      * 药品编号

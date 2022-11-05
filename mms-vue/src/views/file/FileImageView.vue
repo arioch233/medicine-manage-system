@@ -67,12 +67,12 @@
           <el-button type="primary" size="small" @click="download(scope.row.url)">下载</el-button>
         </template>
       </el-table-column>
-<!--      <el-table-column label="启用" align="center">-->
-<!--        <template slot-scope="scope">-->
-<!--          <el-switch v-model="scope.row.enable" active-color="#13ce66" inactive-color="#ccc"-->
-<!--                     @change="changeEnable(scope.row)"></el-switch>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
+      <!--      <el-table-column label="启用" align="center">-->
+      <!--        <template slot-scope="scope">-->
+      <!--          <el-switch v-model="scope.row.enable" active-color="#13ce66" inactive-color="#ccc"-->
+      <!--                     @change="changeEnable(scope.row)"></el-switch>-->
+      <!--        </template>-->
+      <!--      </el-table-column>-->
       <el-table-column label="操作" width="200" align="center">
         <template slot-scope="scope">
           <el-popconfirm
@@ -161,7 +161,7 @@ export default {
         this.total = res.data.total;
       })
     },
-    generateSrcList(json){
+    generateSrcList(json) {
       console.log(json);
       json.forEach(value => {
         this.srcList.push(value.url);

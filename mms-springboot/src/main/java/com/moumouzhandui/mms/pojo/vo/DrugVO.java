@@ -22,6 +22,11 @@ public class DrugVO {
     @ApiModelProperty(name = "id", value = "药品id", dataType = "Integer")
     private Integer id;
 
+    /**
+     * 药品封图
+     */
+    @ApiModelProperty(name = "drugCover", value = "药品封图", required = true, dataType = "String")
+    private String drugCover;
 
     /**
      * 药品编号

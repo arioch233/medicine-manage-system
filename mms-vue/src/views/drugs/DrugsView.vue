@@ -51,10 +51,19 @@
     >
       <!-- 表格列 -->
       <el-table-column type="selection" width="55"/>
-      <el-table-column prop="drugNum" width="150" label="药品编号" fixed="left" align="center"/>
-      <el-table-column prop="drugCategoryName" width="150" label="药品名称" align="center"/>
+      <el-table-column prop="drugNum" width="150" label="药品本位码" fixed="left" align="center"/>
+      <el-table-column label="药品封图" align="center" width="200">
+        <template slot-scope="scope">
+          <el-image
+              style="width: 180px; height: 100px"
+              :src="scope.row.drugCover"
+              fit="contain">
+          </el-image>
+        </template>
+      </el-table-column>
       <el-table-column prop="drugCommonName" width="150" label="药品通用名" align="center"/>
       <el-table-column prop="drugTradeName" width="150" label="药品商品名" align="center"/>
+      <el-table-column prop="drugCategory" width="150" label="药品分类" align="center"/>
       <el-table-column prop="drugForm" width="150" label="药品剂型" align="center"/>
       <el-table-column prop="drugSpecification" width="150" label="药品规格" align="center"/>
       <el-table-column prop="drugPackagingMaterial" width="150" label="药品包装材质" align="center"/>
@@ -81,7 +90,7 @@
       >
         <template slot-scope="scope">
           <i class="el-icon-time" style="margin-right:5px"/>
-          {{ scope.row.updateTime | dateTime }}
+          {{ (scope.row.updateTime ? scope.row.updateTime : scope.row.createTime)| dateTime }}
         </template>
       </el-table-column>
       <!-- 列操作 -->
@@ -120,17 +129,51 @@
       <el-form label-width="100px" size="medium" :model="drugForm">
         <el-tabs active-name="drugCover">
           <el-tab-pane name="drugCover" label="药品封面">
-            <el-upload
-                class="upload-drug-img"
-                drag
-                action="http://localhost:9090/file/image/upload"
-                multiple>
-              <i class="el-icon-upload"></i>
-              <div class="el-upload__text">将药品封图拖到此处，或<em>点击上传</em></div>
-              <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
-            </el-upload>
+            <el-tabs :tab-position="tabPosition" style="height: 220px;">
+              <el-tab-pane label="上传封图">
+                <el-upload
+                    class="upload-drug-img"
+                    drag
+                    action="http://localhost:9090/file/image/upload"
+                    multiple
+                    :before-upload="beforeUpload"
+                    :on-success="uploadCover"
+                >
+                  <i class="el-icon-upload" v-if="drugForm.drugCover === ''"/>
+                  <div class="el-upload__text" v-if="drugForm.drugCover === ''">
+                    将文件拖到此处，或<em>点击上传</em>
+                  </div>
+                  <div class="el-upload__tip" slot="tip" v-if="drugForm.drugCover === ''">
+                    只能上传jpg/png文件
+                  </div>
+                  <img
+                      v-else
+                      :src="drugForm.drugCover"
+                      width="360px"
+                      height="180px"
+                  />
+                </el-upload>
+              </el-tab-pane>
+              <el-tab-pane label="图片URL" style="text-align: center">
+                <el-input
+                    size="small"
+                    v-model="drugForm.drugCover"
+                    clearable
+                    placeholder="请输入图片的URL地址">
+                </el-input>
+                <img
+                    v-if="drugForm.drugCover !== ''"
+                    :src="drugForm.drugCover"
+                    width="360px"
+                    height="180px"
+                />
+              </el-tab-pane>
+            </el-tabs>
           </el-tab-pane>
           <el-tab-pane name="drugBaseInfo" label="药品基本信息">
+            <el-form-item label="药品本位码">
+              <el-input v-model="drugForm.drugNum" style="width:350px"/>
+            </el-form-item>
             <el-form-item label="药品通用名">
               <el-input v-model="drugForm.drugCommonName" style="width:350px"/>
             </el-form-item>
@@ -138,7 +181,21 @@
               <el-input v-model="drugForm.drugTradeName" style="width:350px"/>
             </el-form-item>
             <el-form-item label="药品功效">
-              <el-input v-model="drugForm.drugEffect" style="width:350px"/>
+              <el-input v-model="drugForm.drugEffect" type="textarea" style="width:350px"/>
+            </el-form-item>
+            <el-form-item label="药品分类">
+              <el-select
+                  v-model="drugForm.drugCategory"
+                  filterable
+                  default-first-option
+                  placeholder="请选择药品分类">
+                <el-option
+                    v-for="item in drugCategoryOptions"
+                    :key="item.id"
+                    :label="item.categoryName"
+                    :value="item.categoryName">
+                </el-option>
+              </el-select>
             </el-form-item>
           </el-tab-pane>
           <el-tab-pane name="drugInfo" label="药品信息">
@@ -188,6 +245,8 @@
   </el-card>
 </template>
 <script>
+import * as imageConversion from "image-conversion";
+
 export default {
   name: "DrugView",
   created() {
@@ -195,6 +254,7 @@ export default {
   },
   data() {
     return {
+      tabPosition: "left",
       loading: true,
       isDelete: false,
       keywords: null,
@@ -205,6 +265,7 @@ export default {
       drugList: [],
       drugModel: false,
       drugForm: {
+        drugNum: "",
         drugCommonName: "",
         drugTradeName: "",
         drugForm: "",
@@ -212,9 +273,12 @@ export default {
         drugPackagingMaterial: "",
         drugManufacturer: "",
         drugEffect: "",
-        drugQuantity: "",
-        drugPrice: ""
-      }
+        drugQuantity: "0",
+        drugPrice: "",
+        drugCover: "",
+        drugCategory: ""
+      },
+      drugCategoryOptions: []
     }
   },
   methods: {
@@ -237,18 +301,104 @@ export default {
       });
     },
     listDrug() {
-      this.loading = false;
+      this.request.get("/drug/all", {
+        params: {
+          current: this.current,
+          size: this.size,
+          keywords: this.keywords,
+        }
+      }).then(data => {
+        this.drugList = data.data.records;
+        this.count = data.data.count;
+        this.loading = false;
+      })
     },
     openModel(drug) {
       this.$refs.supplierTitle.innerHTML = drug ? "修改药品信息" : "新增药品信息";
+      if (drug !== null) {
+        this.drugForm = JSON.parse(JSON.stringify(drug));
+        console.log(this.drugForm)
+      } else {
+        this.drugForm = {
+          drugNum: "",
+          drugCommonName: "",
+          drugTradeName: "",
+          drugForm: "",
+          drugSpecification: "",
+          drugPackagingMaterial: "",
+          drugManufacturer: "",
+          drugEffect: "",
+          drugQuantity: "0",
+          drugPrice: "",
+          drugCover: "",
+          drugCategory: ""
+        };
+      }
+      this.request.get("/category/options", {
+        params: {
+          categoryType: 0
+        }
+      }).then(data => {
+        this.drugCategoryOptions = data.data;
+      });
       this.drugModel = true;
     },
     saveOrUpdate() {
-
+      this.request.post("/drug/update", this.drugForm).then(data => {
+        if (data.code === 200) {
+          this.$notify.success({
+            title: "成功",
+            message: data.message
+          });
+          this.listDrug();
+        } else {
+          this.$notify.error({
+            title: "失败",
+            message: data.message
+          });
+        }
+        this.drugModel = false;
+      });
     },
     deleteCargo(id) {
-
-    }
+      let param = {};
+      if (id == null) {
+        param = {data: this.drugCategoryIdList};
+      } else {
+        param = {data: [id]};
+      }
+      this.request.delete("/drug/delete", param).then(data => {
+        if (data.code === 200) {
+          this.$notify.success({
+            title: "成功",
+            message: data.message
+          });
+          this.listDrug();
+        } else {
+          this.$notify.error({
+            title: "失败",
+            message: data.message
+          });
+        }
+        this.isDelete = false;
+      });
+    },
+    uploadCover(response) {
+      this.drugForm.drugCover = response.data;
+    },
+    beforeUpload(file) {
+      return new Promise(resolve => {
+        if (file.size / 1024 < this.config.UPLOAD_SIZE) {
+          resolve(file);
+        }
+        // 压缩到200KB,这里的200就是要压缩的大小,可自定义
+        imageConversion
+            .compressAccurately(file, this.config.UPLOAD_SIZE)
+            .then(res => {
+              resolve(res);
+            });
+      });
+    },
   }
 }
 </script>
