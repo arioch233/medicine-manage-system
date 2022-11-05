@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moumouzhandui.mms.mapper.DrugMapper">
+
+    <resultMap id="BaseResultMap" type="com.moumouzhandui.mms.entity.Drug">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="drugCover" column="drug_cover" jdbcType="VARCHAR"/>
+            <result property="drugNum" column="drug_num" jdbcType="VARCHAR"/>
+            <result property="drugCommonName" column="drug_common_name" jdbcType="VARCHAR"/>
+            <result property="drugTradeName" column="drug_trade_name" jdbcType="VARCHAR"/>
+            <result property="drugForm" column="drug_form" jdbcType="VARCHAR"/>
+            <result property="drugSpecification" column="drug_specification" jdbcType="VARCHAR"/>
+            <result property="drugPackagingMaterial" column="drug_packaging_material" jdbcType="VARCHAR"/>
+            <result property="drugEffect" column="drug_effect" jdbcType="VARCHAR"/>
+            <result property="drugManufacturer" column="drug_manufacturer" jdbcType="VARCHAR"/>
+            <result property="drugQuantity" column="drug_quantity" jdbcType="INTEGER"/>
+            <result property="drugPrice" column="drug_price" jdbcType="DECIMAL"/>
+            <result property="drugCategory" column="drug_category" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,drug_cover,drug_num,
+        drug_common_name,drug_trade_name,drug_form,
+        drug_specification,drug_packaging_material,drug_effect,
+        drug_manufacturer,drug_quantity,drug_price,
+        drug_category,create_time,update_time
+    </sql>
+</mapper>
