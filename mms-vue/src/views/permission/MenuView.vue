@@ -90,7 +90,7 @@
               type="text"
               size="mini"
               @click="openModel(scope.row, 1)"
-              v-if="scope.row.children"
+              v-if="scope.row.component==='Layout'"
           >
             <i class="el-icon-plus"/> 新增
           </el-button>
@@ -321,6 +321,23 @@ export default {
             message: data.message
           });
         }
+      });
+    },
+    changeDisable(row) {
+      this.request.post("/menu/update", row).then(data => {
+        if (data.code === 200) {
+          this.$notify.success({
+            title: "成功",
+            message: "操作成功"
+          });
+          this.listMenus();
+        } else {
+          this.$notify.error({
+            title: "失败",
+            message: "操作失败"
+          });
+        }
+        this.addMenu = false;
       });
     }
   }

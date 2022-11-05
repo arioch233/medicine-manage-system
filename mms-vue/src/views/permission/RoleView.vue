@@ -140,17 +140,10 @@
           <el-input v-model="roleForm.roleLabel" style="width:250px"/>
         </el-form-item>
         <el-form-item label="菜单权限">
-          <!--          <el-tree-->
-          <!--              :data="menuList"-->
-          <!--              :default-checked-keys="roleForm.menuIdList"-->
-          <!--              check-strictly-->
-          <!--              show-checkbox-->
-          <!--              node-key="id"-->
-          <!--              ref="menuTree"-->
-          <!--          />-->
           <el-tree
               :data="menuList"
               :default-checked-keys="roleForm.menuIdList"
+              check-strictly
               show-checkbox
               node-key="id"
               ref="menuTree"
@@ -298,7 +291,7 @@ export default {
       });
     },
     openMenuModel(role) {
-      this.$nextTick(function () {
+      this.$nextTick(() => {
         this.$refs.menuTree.setCheckedKeys([]);
       });
       this.$refs.roleTitle.innerHTML = role ? "修改角色" : "新增角色";
@@ -315,11 +308,12 @@ export default {
       this.roleMenu = true;
     },
     openResourceModel(role) {
+      this.roleResource = true;
       this.$nextTick(function () {
         this.$refs.resourceTree.setCheckedKeys([]);
       });
       this.roleForm = JSON.parse(JSON.stringify(role));
-      this.roleResource = true;
+
     },
     saveOrUpdateRoleResource() {
       this.roleForm.menuIdList = null;
@@ -384,7 +378,9 @@ export default {
           });
         }
       });
-    }
+    },
+
+
   },
 
 };
