@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moumouzhandui.mms.mapper.MedicalDevicesMapper">
+
+    <resultMap id="BaseResultMap" type="com.moumouzhandui.mms.entity.MedicalDevices">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="medicalDevicesNum" column="medical_devices_num" jdbcType="VARCHAR"/>
+            <result property="medicalDevicesName" column="medical_devices_name" jdbcType="VARCHAR"/>
+            <result property="medicalDevicesCover" column="medical_devices_cover" jdbcType="VARCHAR"/>
+            <result property="medicalDevicesEffect" column="medical_devices_effect" jdbcType="VARCHAR"/>
+            <result property="medicalDevicesSpecification" column="medical_devices_specification" jdbcType="VARCHAR"/>
+            <result property="medicalDevicesManufacturer" column="medical_devices_manufacturer" jdbcType="VARCHAR"/>
+            <result property="medicalDevicesCategory" column="medical_devices_category" jdbcType="VARCHAR"/>
+            <result property="medicalDevicesQuantity" column="medical_devices_quantity" jdbcType="INTEGER"/>
+            <result property="medicalDevicesPrice" column="medical_devices_price" jdbcType="DECIMAL"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,medical_devices_num,medical_devices_name,
+        medical_devices_cover,medical_devices_effect,medical_devices_specification,
+        medical_devices_manufacturer,medical_devices_category,medical_devices_quantity,
+        medical_devices_price,create_time,update_time
+    </sql>
+</mapper>
