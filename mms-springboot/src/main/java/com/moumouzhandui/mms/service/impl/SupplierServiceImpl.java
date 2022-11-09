@@ -66,6 +66,12 @@ public class SupplierServiceImpl extends ServiceImpl<SupplierMapper, Supplier>
     public void deleteSupplier(List<Integer> supplierIds) {
         this.removeBatchByIds(supplierIds);
     }
+
+
+    @Override
+    public List<SupplierDTO> listSupplierOptions() {
+        return supplierMapper.listSupplierOptions();
+    }
 }
 
 

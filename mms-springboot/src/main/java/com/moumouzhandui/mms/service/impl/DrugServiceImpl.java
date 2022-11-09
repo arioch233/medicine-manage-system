@@ -9,6 +9,7 @@ import com.moumouzhandui.mms.common.enums.StatusCodeEnum;
 import com.moumouzhandui.mms.entity.Drug;
 import com.moumouzhandui.mms.exception.ServiceException;
 import com.moumouzhandui.mms.mapper.DrugMapper;
+import com.moumouzhandui.mms.pojo.dto.CargoDTO;
 import com.moumouzhandui.mms.pojo.dto.DrugDTO;
 import com.moumouzhandui.mms.pojo.vo.ConditionVO;
 import com.moumouzhandui.mms.pojo.vo.DrugVO;
@@ -67,6 +68,12 @@ public class DrugServiceImpl extends ServiceImpl<DrugMapper, Drug>
     @Override
     public void deleteDrug(List<Integer> drugIds) {
         this.removeBatchByIds(drugIds);
+    }
+
+
+    @Override
+    public List<CargoDTO> listDrugOptions() {
+        return drugMapper.listDrugOptions();
     }
 }
 

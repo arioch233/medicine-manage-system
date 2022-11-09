@@ -1,7 +1,7 @@
 package com.moumouzhandui.mms.mapper;
 
-import com.moumouzhandui.mms.entity.RoleResource;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.moumouzhandui.mms.entity.RoleResource;
 
 /**
 * @author 冷血毒舌

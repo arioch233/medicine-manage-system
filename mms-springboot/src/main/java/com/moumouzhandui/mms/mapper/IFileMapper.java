@@ -1,7 +1,7 @@
 package com.moumouzhandui.mms.mapper;
 
-import com.moumouzhandui.mms.entity.IFile;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.moumouzhandui.mms.entity.IFile;
 
 /**
 * @author 冷血毒舌

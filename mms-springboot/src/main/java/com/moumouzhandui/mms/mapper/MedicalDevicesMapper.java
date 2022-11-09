@@ -1,7 +1,10 @@
 package com.moumouzhandui.mms.mapper;
 
-import com.moumouzhandui.mms.entity.MedicalDevices;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.moumouzhandui.mms.entity.MedicalDevices;
+import com.moumouzhandui.mms.pojo.dto.CargoDTO;
+
+import java.util.List;
 
 /**
 * @author 冷血毒舌
@@ -10,6 +13,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface MedicalDevicesMapper extends BaseMapper<MedicalDevices> {
 
+    List<CargoDTO> listMedicalDevicesOptions();
 }
 
 

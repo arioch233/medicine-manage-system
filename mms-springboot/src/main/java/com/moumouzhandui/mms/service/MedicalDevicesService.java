@@ -3,6 +3,7 @@ package com.moumouzhandui.mms.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.moumouzhandui.mms.entity.MedicalDevices;
+import com.moumouzhandui.mms.pojo.dto.CargoDTO;
 import com.moumouzhandui.mms.pojo.dto.MedicalDevicesDTO;
 import com.moumouzhandui.mms.pojo.vo.ConditionVO;
 import com.moumouzhandui.mms.pojo.vo.MedicalDevicesVO;
@@ -21,4 +22,6 @@ public interface MedicalDevicesService extends IService<MedicalDevices> {
     void updateMedicalDevices(MedicalDevicesVO medicalDevicesVO);
 
     void deleteMedicalDevices(List<Integer> medicalDevicesIds);
+
+    List<CargoDTO> listMedicalDevicesOptions();
 }

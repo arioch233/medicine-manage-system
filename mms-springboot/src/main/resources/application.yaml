@@ -1,3 +1,6 @@
+server:
+  port: 9090
+
 spring:
   profiles:
     active: develop
@@ -10,16 +13,30 @@ spring:
     path match:
       # 配置策略
       matching-strategy: ant_path_matcher
+  # 邮箱配置
+  mail:
+    host: smtp.qq.com
+    username: 1738252674@qq.com
+    password: hjfumurykpbvfacb
+    default-encoding: UTF-8
+    port: 587
+    properties:
+      mail:
+      smtp:
+      auth: true
+      socketFactory:
+      class: javax.net.ssl.SSLSocketFactory
 
-mybatis:
-  mapper-locations: classpath:mapper/*.xml  # 扫描所有mybatis的配置文件
 
 mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
-server:
-  port: 9090
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: full
+  mapper-locations: classpath:mapper/*.xml  # 扫描所有mybatis的配置文件
 
 files:
   upload:
@@ -27,3 +44,7 @@ files:
       images: E:\JavaProgram\Spring\MedicineManageSystem\mms-springboot\files\images\
   url:
     base: "http://localhost:9090/file/image/download/"
+
+
+
+

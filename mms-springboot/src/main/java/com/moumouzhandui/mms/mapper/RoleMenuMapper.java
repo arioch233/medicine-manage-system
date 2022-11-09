@@ -1,7 +1,7 @@
 package com.moumouzhandui.mms.mapper;
 
-import com.moumouzhandui.mms.entity.RoleMenu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.moumouzhandui.mms.entity.RoleMenu;
 
 /**
 * @author 冷血毒舌

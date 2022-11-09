@@ -9,6 +9,7 @@ import com.moumouzhandui.mms.common.enums.StatusCodeEnum;
 import com.moumouzhandui.mms.entity.MedicalDevices;
 import com.moumouzhandui.mms.exception.ServiceException;
 import com.moumouzhandui.mms.mapper.MedicalDevicesMapper;
+import com.moumouzhandui.mms.pojo.dto.CargoDTO;
 import com.moumouzhandui.mms.pojo.dto.MedicalDevicesDTO;
 import com.moumouzhandui.mms.pojo.vo.ConditionVO;
 import com.moumouzhandui.mms.pojo.vo.MedicalDevicesVO;
@@ -70,6 +71,11 @@ public class MedicalDevicesServiceImpl extends ServiceImpl<MedicalDevicesMapper,
     @Override
     public void deleteMedicalDevices(List<Integer> medicalDevicesIds) {
         this.removeBatchByIds(medicalDevicesIds);
+    }
+
+    @Override
+    public List<CargoDTO> listMedicalDevicesOptions() {
+        return medicalDevicesMapper.listMedicalDevicesOptions();
     }
 }
 

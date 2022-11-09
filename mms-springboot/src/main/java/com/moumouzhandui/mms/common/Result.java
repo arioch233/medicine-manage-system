@@ -27,6 +27,10 @@ public class Result {
     @ApiModelProperty(name = "data", value = "后台返回存放的信息", dataType = "Object")
     private Object data; // 后台返回存放的信息
 
+    public Result(String message) {
+        this.message = message;
+    }
+
     public static Result success() {
         return new Result(StatusCodeEnum.SUCCESS.getCode(), StatusCodeEnum.SUCCESS.getDescription(), null);
     }
@@ -47,4 +51,7 @@ public class Result {
         return new Result(code, message, data);
     }
 
+    public static Result error(String message) {
+        return new Result(message);
+    }
 }

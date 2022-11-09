@@ -62,4 +62,15 @@ public class SupplierController {
         supplierService.deleteSupplier(supplierIds);
         return Result.success();
     }
+
+    /**
+     * 获取供货商选项列表
+     *
+     * @return
+     */
+    @ApiOperation(value = "获取供货商选项列表")
+    @GetMapping("/options")
+    public Result listSupplierOptions() {
+        return Result.success(supplierService.listSupplierOptions());
+    }
 }

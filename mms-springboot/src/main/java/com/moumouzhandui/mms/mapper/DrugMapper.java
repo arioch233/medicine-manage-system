@@ -2,6 +2,9 @@ package com.moumouzhandui.mms.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.moumouzhandui.mms.entity.Drug;
+import com.moumouzhandui.mms.pojo.dto.CargoDTO;
+
+import java.util.List;
 
 /**
  * @author Administrator
@@ -10,6 +13,7 @@ import com.moumouzhandui.mms.entity.Drug;
  */
 public interface DrugMapper extends BaseMapper<Drug> {
 
+    List<CargoDTO> listDrugOptions();
 }
 
 

@@ -2,8 +2,8 @@ package com.moumouzhandui.mms.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.moumouzhandui.mms.entity.RoleResource;
-import com.moumouzhandui.mms.service.RoleResourceService;
 import com.moumouzhandui.mms.mapper.RoleResourceMapper;
+import com.moumouzhandui.mms.service.RoleResourceService;
 import org.springframework.stereotype.Service;
 
 /**

@@ -1,7 +1,7 @@
 package com.moumouzhandui.mms.service;
 
-import com.moumouzhandui.mms.entity.RoleMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.moumouzhandui.mms.entity.RoleMenu;
 
 /**
 * @author 冷血毒舌

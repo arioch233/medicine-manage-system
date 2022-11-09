@@ -3,6 +3,7 @@ package com.moumouzhandui.mms.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.moumouzhandui.mms.entity.Drug;
+import com.moumouzhandui.mms.pojo.dto.CargoDTO;
 import com.moumouzhandui.mms.pojo.dto.DrugDTO;
 import com.moumouzhandui.mms.pojo.vo.ConditionVO;
 import com.moumouzhandui.mms.pojo.vo.DrugVO;
@@ -21,4 +22,6 @@ public interface DrugService extends IService<Drug> {
     void updateDrug(DrugVO drugVO);
 
     void deleteDrug(List<Integer> drugIds);
+
+    List<CargoDTO> listDrugOptions();
 }

@@ -65,7 +65,7 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, IResource> 
             List<IResource> childrenList = new ArrayList<>();
             childrenMap.values().forEach(childrenList::addAll);
             List<ResourceDTO> childrenDTOList = childrenList.stream()
-                    .map(item -> BeanUtil.copyProperties(item, ResourceDTO.class)).toList();
+                    .map(item -> BeanUtil.copyProperties(item, ResourceDTO.class)).collect(Collectors.toList());
             resourceDTOList.addAll(childrenDTOList);
         }
         return resourceDTOList;

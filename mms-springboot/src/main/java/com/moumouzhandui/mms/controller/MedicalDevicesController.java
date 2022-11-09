@@ -62,4 +62,15 @@ public class MedicalDevicesController {
         medicalDevicesService.deleteMedicalDevices(medicalDevicesIds);
         return Result.success();
     }
+
+    /**
+     * 获取器材选项列表
+     *
+     * @return
+     */
+    @ApiOperation(value = "获取器材选项列表")
+    @GetMapping("/options")
+    public Result listMedicalDevicesOptions() {
+        return Result.success(medicalDevicesService.listMedicalDevicesOptions());
+    }
 }

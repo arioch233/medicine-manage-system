@@ -1,8 +1,8 @@
 package com.moumouzhandui.mms.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.moumouzhandui.mms.entity.Supplier;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.moumouzhandui.mms.entity.Supplier;
 import com.moumouzhandui.mms.pojo.dto.SupplierDTO;
 import com.moumouzhandui.mms.pojo.vo.ConditionVO;
 import com.moumouzhandui.mms.pojo.vo.SupplierVO;
@@ -21,4 +21,6 @@ public interface SupplierService extends IService<Supplier> {
     void updateSupplier(SupplierVO supplierVO);
 
     void deleteSupplier(List<Integer> supplierIds);
+
+    List<SupplierDTO> listSupplierOptions();
 }

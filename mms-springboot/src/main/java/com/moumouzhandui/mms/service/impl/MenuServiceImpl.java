@@ -14,11 +14,13 @@ import com.moumouzhandui.mms.mapper.MenuMapper;
 import com.moumouzhandui.mms.mapper.RoleMenuMapper;
 import com.moumouzhandui.mms.pojo.dto.LabelOptionDTO;
 import com.moumouzhandui.mms.pojo.dto.MenuDTO;
+import com.moumouzhandui.mms.pojo.dto.UserDetailDTO;
 import com.moumouzhandui.mms.pojo.dto.UserMenuDTO;
 import com.moumouzhandui.mms.pojo.vo.ConditionVO;
 import com.moumouzhandui.mms.pojo.vo.MenuVO;
 import com.moumouzhandui.mms.service.MenuService;
 import com.moumouzhandui.mms.utils.BeanCopyUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +36,7 @@ import static com.moumouzhandui.mms.common.CommonConst.TRUE;
  * @description 针对表【sys_menu】的数据库操作Service实现
  * @createDate 2022-10-20 23:57:05
  */
+@Slf4j
 @Service
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu>
         implements MenuService {
@@ -61,12 +64,12 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu>
                     // 获取目录下的菜单排序
                     List<MenuDTO> list = BeanCopyUtils.copyList(childrenMenuMap.get(item.getId()), MenuDTO.class).stream()
                             .sorted(Comparator.comparing(MenuDTO::getOrderNum))
-                            .toList();
+                            .collect(Collectors.toList());
                     menuDTO.setChildren(list);
                     childrenMenuMap.remove(item.getId());
                     return menuDTO;
                 }).sorted(Comparator.comparing(MenuDTO::getOrderNum))
-                .toList();
+                .collect(Collectors.toList());
         // 若还有菜单未取出则拼接
         if (CollectionUtil.isNotEmpty(childrenMenuMap)) {
             List<Menu> childrenList = new ArrayList<>();
@@ -74,7 +77,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu>
             List<MenuDTO> childrenMenuDTOList = childrenList.stream()
                     .map(item -> BeanUtil.copyProperties(item, MenuDTO.class))
                     .sorted(Comparator.comparing(MenuDTO::getOrderNum))
-                    .toList();
+                    .collect(Collectors.toList());
             menuDTOList.addAll(childrenMenuDTOList);
         }
         return menuDTOList;
@@ -90,7 +93,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu>
         return menuList.stream()
                 .filter(item -> Objects.isNull(item.getParentId()))
                 .sorted(Comparator.comparing(Menu::getOrderNum))
-                .toList();
+                .collect(Collectors.toList());
     }
 
     /**
@@ -164,7 +167,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu>
     }
 
     @Override
-    public List<UserMenuDTO> listUserMenus() {
+    public List<UserMenuDTO> listUserMenus(UserDetailDTO userDetailDTO) {
+//    public List<UserMenuDTO> listUserMenus() {
         // 查询用户菜单信息
         List<Menu> menuList = menuMapper.listMenusByUserInfoId(1);
         // 获取目录列表

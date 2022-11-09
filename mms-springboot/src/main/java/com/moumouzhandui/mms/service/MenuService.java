@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.moumouzhandui.mms.entity.Menu;
 import com.moumouzhandui.mms.pojo.dto.LabelOptionDTO;
 import com.moumouzhandui.mms.pojo.dto.MenuDTO;
+import com.moumouzhandui.mms.pojo.dto.UserDetailDTO;
 import com.moumouzhandui.mms.pojo.dto.UserMenuDTO;
 import com.moumouzhandui.mms.pojo.vo.ConditionVO;
 import com.moumouzhandui.mms.pojo.vo.MenuVO;
@@ -25,5 +26,6 @@ public interface MenuService extends IService<Menu> {
 
     List<LabelOptionDTO> listMenuOptions();
 
-    List<UserMenuDTO> listUserMenus();
+    List<UserMenuDTO> listUserMenus(UserDetailDTO userDetailDTO);
+//    List<UserMenuDTO> listUserMenus();
 }

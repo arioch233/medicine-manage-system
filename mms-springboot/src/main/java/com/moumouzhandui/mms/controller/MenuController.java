@@ -3,12 +3,14 @@ package com.moumouzhandui.mms.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moumouzhandui.mms.common.Result;
 import com.moumouzhandui.mms.pojo.dto.MenuDTO;
+import com.moumouzhandui.mms.pojo.dto.UserDetailDTO;
 import com.moumouzhandui.mms.pojo.vo.ConditionVO;
 import com.moumouzhandui.mms.pojo.vo.MenuVO;
 import com.moumouzhandui.mms.service.MenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -82,8 +84,10 @@ public class MenuController {
      */
     @ApiOperation(value = "查看当前用户菜单")
     @GetMapping("/user")
-    public Result listUserMenus() {
-        return Result.success(menuService.listUserMenus());
+    public Result listUserMenus(Authentication authentication) {
+        UserDetailDTO userDetailDTO = (UserDetailDTO) authentication.getPrincipal();
+        return Result.success(menuService.listUserMenus(userDetailDTO));
+//        return Result.success(menuService.listUserMenus());
     }
 
 }

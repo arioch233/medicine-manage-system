@@ -23,7 +23,7 @@
         update_time,order_num,parent_id,
         is_hidden
     </sql>
-    <select id="listMenusByUserInfoId" resultType="com.moumouzhandui.mms.entity.Menu">
+    <select id="listMenusByUserInfoId"  resultType="com.moumouzhandui.mms.entity.Menu">
         SELECT DISTINCT
         m.id,
         m.menu_name,
@@ -34,9 +34,10 @@
         m.parent_id,
         m.order_num
         FROM
-        sys_role_menu rm
+        tb_user_role ur
+        JOIN sys_role_menu rm ON ur.role_id = rm.role_id
         JOIN sys_menu m ON rm.menu_id = m.id
         WHERE
-        rm.role_id = #{userInfoId}
+        ur.user_id = #{userInfoId}
     </select>
 </mapper>

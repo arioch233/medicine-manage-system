@@ -61,4 +61,17 @@ public class DrugController {
         drugService.deleteDrug(drugIds);
         return Result.success();
     }
+
+    /**
+     * 获取药品选项列表
+     *
+     * @return
+     */
+    @ApiOperation(value = "获取药品选项列表")
+    @GetMapping("/options")
+    public Result listDrugOptions() {
+        return Result.success(drugService.listDrugOptions());
+    }
+
+
 }
