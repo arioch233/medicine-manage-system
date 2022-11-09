@@ -113,7 +113,7 @@
     <!--  供货商对话框  -->
     <el-dialog :visible.sync="supplierModel" width="40%">
       <div class="dialog-title-container" slot="title" ref="supplierTitle"/>
-      <el-form label-width="150px" size="medium" :model="supplierForm" :rules="rules">
+      <el-form label-width="150px" size="medium" :model="supplierForm" >
         <el-form-item label="供货商名称">
           <el-input v-model="supplierForm.supplierName" style="width:350px"/>
         </el-form-item>
@@ -194,7 +194,6 @@ export default {
         supplierBankCard: ""
       },
       restaurants: [],
-      rules: [],
     }
   },
   methods: {
@@ -231,6 +230,19 @@ export default {
     },
     openModel(suppler) {
       this.$refs.supplierTitle.innerHTML = suppler ? "修改供货商信息" : "新增供货商信息";
+      if (suppler !== null) {
+        this.supplierForm = JSON.parse(JSON.stringify(suppler));
+      } else {
+        this.supplierForm = {
+          supplierName: "",
+          supplierPrincipal: "",
+          supplierContract: "",
+          supplierEmail: "",
+          supplierAddress: "",
+          supplierBank: "",
+          supplierBankCard: ""
+        };
+      }
       this.supplierModel = true;
     },
     saveOrUpdate() {
@@ -262,7 +274,7 @@ export default {
         this.$message.error("供货商开户行账号不能为空");
         return false;
       }
-      this.request.post("/supplier/update",this.supplierForm).then(data => {
+      this.request.post("/supplier/update", this.supplierForm).then(data => {
         if (data.code === 200) {
           this.$notify.success({
             title: "成功",

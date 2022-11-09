@@ -25,9 +25,6 @@
             <el-form-item label="昵称">
               <el-input v-model="infoForm.nickname" size="small"/>
             </el-form-item>
-            <el-form-item label="个人简介">
-              <el-input v-model="infoForm.intro" size="small"/>
-            </el-form-item>
             <el-button
                 @click="updateInfo"
                 type="primary"
@@ -102,13 +99,13 @@ export default {
   methods: {
     handleClick(tab) {
       if (tab.index === 2 && this.notice === "") {
-        this.axios.get("/api/admin/notice").then(({data}) => {
+        this.request.get("/admin/notice").then(data => {
           this.notice = data.data;
         });
       }
     },
     updateAvatar(response) {
-      if (response.flag) {
+      if (response.code === 200) {
         this.$message.success(response.message);
         this.$store.commit("updateAvatar", response.data);
       } else {
@@ -120,8 +117,8 @@ export default {
         this.$message.error("昵称不能为空");
         return false;
       }
-      this.axios.put("/api/users/info", this.infoForm).then(({data}) => {
-        if (data.flag) {
+      this.request.put("/user/info", this.infoForm).then(data => {
+        if (data.code === 200) {
           this.$message.success(data.message);
           this.$store.commit("updateUserInfo", this.infoForm);
         } else {
@@ -146,10 +143,10 @@ export default {
         this.$message.error("两次密码输入不一致");
         return false;
       }
-      this.axios
-          .put("/api/admin/users/password", this.passwordForm)
-          .then(({data}) => {
-            if (data.flag) {
+      this.request
+          .put("/user/admin/password", this.passwordForm)
+          .then(data => {
+            if (data.code === 200) {
               this.passwordForm.oldPassword = "";
               this.passwordForm.newPassword = "";
               this.passwordForm.confirmPassword = "";
@@ -159,25 +156,10 @@ export default {
             }
           });
     },
-    updateNotice() {
-      if (this.notice.trim() === "") {
-        this.$message.error("公告不能为空");
-        return false;
-      }
-      let param = new URLSearchParams();
-      param.append("notice", this.notice);
-      this.axios.put("/api/admin/notice", param).then(({data}) => {
-        if (data.flag) {
-          this.$message.success(data.message);
-        } else {
-          this.$message.error(data.message);
-        }
-      });
-    }
   },
   computed: {
     avatar() {
-      return this.$store.state.avatarUrl;
+      return this.$store.state.avatar;
     }
   }
 };

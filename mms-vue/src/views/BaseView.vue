@@ -37,15 +37,6 @@ export default {
   components: {
     Header, Footer, Aside
   },
-  created() {
-    this.$store.state.nickname = '冷血毒舌';
-    this.$store.state.avatarUrl = 'https://imgsa.baidu.com/forum/pic/item/1f0c97cad1c8a786a9db62306509c93d70cf5029.jpg';
-
-  },
-  data() {
-    return {}
-  },
-  methods: {},
   computed: {
     isHide() {
       return this.$store.state.collapse ? "hideSideBar" : "";
@@ -60,21 +51,26 @@ export default {
   margin-left: 210px;
   min-height: 100vh;
 }
+
 .hideSideBar {
   margin-left: 64px;
 }
+
 .fade-transform-enter-active,
 .fade-transform-leave-active {
   transition: all 0.5s ease 0s;
 }
+
 .fade-transform-enter {
   opacity: 0;
   transform: translateX(-30px);
 }
+
 .fade-transform-leave-to {
   opacity: 0;
   transform: translateX(30px);
 }
+
 .fade-transform-box {
   position: relative;
   top: 0px;

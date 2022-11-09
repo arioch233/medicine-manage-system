@@ -22,7 +22,7 @@
         <!-- 用户选项 -->
         <el-dropdown @command="handleCommand">
           <div style="display: flex;cursor: pointer;">
-            <el-avatar :size="40" :src="this.$store.state.avatarUrl">
+            <el-avatar :size="40" :src="this.$store.state.avatar">
               user
             </el-avatar>
             <div style="display: inline-block; margin: 10px 5px">
@@ -75,7 +75,7 @@ export default {
     let matched = this.$route.matched.filter(item => item.name);
     const first = matched[0];
     if (first && first.name !== "首页") {
-      matched = [{path: "/index", name: "首页"}].concat(matched);
+      matched = [{path: "/", name: "首页"}].concat(matched);
     }
     this.breadcrumbList = matched;
     //保存当前页标签
@@ -112,7 +112,9 @@ export default {
       }
       if (command === "logout") {
         // 调用注销接口
-        this.axios.post("/api/logout");
+        this.request.post("/logout").then(data => {
+          console.log(data)
+        });
         // 清空用户信息
         this.$store.commit("logout");
         this.$store.commit("resetTab");
@@ -178,17 +180,20 @@ export default {
   height: 50px;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 }
+
 .hambuger-container {
   font-size: 1.25rem;
   cursor: pointer;
   margin-right: 24px;
 }
+
 .tabs-wrapper {
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;
   width: 95%;
 }
+
 .tabs-view-container {
   display: flex;
   position: relative;
@@ -199,6 +204,7 @@ export default {
   border-bottom: 1px solid #d8dce5;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
 }
+
 .tabs-view-item {
   display: inline-block;
   cursor: pointer;
@@ -212,6 +218,7 @@ export default {
   margin-top: 4px;
   margin-left: 5px;
 }
+
 .tabs-close-item {
   position: absolute;
   right: 10px;
@@ -227,6 +234,7 @@ export default {
   margin-top: 4px;
   margin-left: 5px;
 }
+
 .tabs-view-item-active {
   display: inline-block;
   cursor: pointer;
@@ -240,6 +248,7 @@ export default {
   color: #fff;
   border-color: #42b983;
 }
+
 .tabs-view-item-active:before {
   content: "";
   background: #fff;
@@ -250,32 +259,39 @@ export default {
   position: relative;
   margin-right: 2px;
 }
+
 .el-icon-close {
   padding: 0.1rem;
 }
+
 .el-icon-close:hover {
   border-radius: 50%;
   background: #b4bccc;
   transition-duration: 0.3s;
 }
+
 .right-menu {
   margin-left: auto;
   display: flex;
   align-items: center;
 }
+
 .el-icon-caret-bottom {
   margin-left: 0.5rem;
   font-size: 0.75rem;
 }
+
 .screen-full {
   cursor: pointer;
   margin-right: 1rem;
   font-size: 1.25rem;
 }
+
 *::-webkit-scrollbar {
   width: 0.5rem;
   height: 6px;
 }
+
 *::-webkit-scrollbar-thumb {
   border-radius: 0.5rem;
   background-color: rgba(144, 147, 153, 0.3);

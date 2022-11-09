@@ -59,8 +59,13 @@ NProgress.configure({
 
 router.beforeEach((to, from, next) => {
     NProgress.start();
-    next();
-
+    if (to.path === "/login") {
+        next();
+    } else if (!store.state.userId) {
+        next({path: "/login"});
+    } else {
+        next();
+    }
 });
 
 router.afterEach(() => {

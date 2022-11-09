@@ -308,11 +308,12 @@ export default {
       this.roleMenu = true;
     },
     openResourceModel(role) {
-      this.roleResource = true;
+
       this.$nextTick(function () {
         this.$refs.resourceTree.setCheckedKeys([]);
       });
       this.roleForm = JSON.parse(JSON.stringify(role));
+      this.roleResource = true;
 
     },
     saveOrUpdateRoleResource() {

@@ -227,6 +227,7 @@ export default {
           keywords: this.keywords
         }
       }).then(data => {
+        console.log(data)
         this.menuList = data.data;
         this.loading = false;
       });

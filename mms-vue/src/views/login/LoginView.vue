@@ -15,8 +15,6 @@
             <el-form
                 status-icon
                 :model="loginForm"
-                :rules="ruleLogin"
-                ref="ruleLoginForm"
                 class="login-form"
             >
               <!-- 用户名输入框 -->
@@ -50,22 +48,29 @@
             <el-form
                 status-icon
                 :model="registerForm"
-                :rules="ruleRegister"
-                ref="ruleRegisterForm"
                 class="login-form"
             >
               <!-- 邮箱输入框 -->
-              <el-form-item prop="username">
+              <el-form-item style="margin-bottom: 8px">
                 <el-input
-                    v-model="registerForm.email"
+                    v-model="registerForm.username"
                     prefix-icon="el-icon-s-promotion"
                     placeholder="邮箱"
                     @keyup.enter.native="register"
                     clearable
                 />
               </el-form-item>
+              <!-- 验证码输入框 -->
+              <el-form-item>
+                <el-input placeholder="请输入验证码" v-model="registerForm.code"
+                          style="width: 210px;display: inline-block">
+                </el-input>
+                <el-button plain style="display: inline-block;width: 110px; margin-left: 30px;" @click="getCode">
+                  获取验证码
+                </el-button>
+              </el-form-item>
               <!-- 昵称输入框 -->
-              <el-form-item prop="username">
+              <el-form-item>
                 <el-input
                     v-model="registerForm.nickname"
                     prefix-icon="el-icon-user"
@@ -75,23 +80,12 @@
                 />
               </el-form-item>
               <!-- 密码输入框 -->
-              <el-form-item prop="password">
+              <el-form-item>
                 <el-input
                     v-model="registerForm.password"
                     prefix-icon="el-icon-lock"
                     show-password
                     placeholder="密码"
-                    clearable
-                    @keyup.enter.native="register"
-                />
-              </el-form-item>
-              <!-- 确认密码输入框 -->
-              <el-form-item prop="password">
-                <el-input
-                    v-model="registerPassword"
-                    prefix-icon="el-icon-lock"
-                    show-password
-                    placeholder="确认密码"
                     clearable
                     @keyup.enter.native="register"
                 />
@@ -108,6 +102,7 @@
 
 <script>
 import logoURL from "../../assets/image/logo-small.png"
+import {generateMenu} from "@/assets/js/router/menu";
 
 export default {
   name: "LoginView",
@@ -119,36 +114,100 @@ export default {
         username: "",
         password: ""
       },
-      registerPassword: "",
       registerForm: {
-        email: "",
+        code: "",
+        username: "",
         nickname: "",
         password: ""
       },
-      ruleLogin: {
-        username: [
-          {required: true, message: "用户名不能为空", trigger: "blur"}
-        ],
-        password: [
-          {required: true, message: "密码不能为空", trigger: "blur"}
-        ]
-      },
-      ruleRegister: {}
     };
   },
   methods: {
     login() {
-      this.$refs.ruleForm.validate(valid => {
-        if (valid) {
-          const that = this;
-          that.$router.push("/home");
+      const that = this;
+      const reg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+      if (!reg.test(this.loginForm.username)) {
+        this.$message.error("邮箱格式不正确！")
+        return false;
+      }
+      if (this.loginForm.password.trim().length < 6) {
+        this.$message.error("密码不少于6位！")
+        return false;
+      }
+      // 发送登录请求
+      let param = new URLSearchParams();
+      param.append("username", that.loginForm.username);
+      param.append("password", that.loginForm.password);
+      that.request.post("/login", param).then(data => {
+        if (data.code === 200) {
+          // 登录后保存用户信息
+          that.$store.commit("login", data.data);
+          generateMenu();
+          // 加载用户菜单
+          this.$notify.success({
+            title: "登录成功",
+            message: data.message
+          });
+          that.$router.push({path: "/"})
         } else {
-          return false;
+          this.$notify.error({
+            title: "登录失败",
+            message: data.message
+          });
         }
-      });
+      })
+
     },
     register() {
-
+      const reg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+      if (!reg.test(this.registerForm.username)) {
+        this.$message.error("邮箱格式不正确！")
+        return false;
+      }
+      if (this.registerForm.nickname.trim().length < 2) {
+        this.$message.error("昵称不少于2位！")
+        return false;
+      }
+      if (this.registerForm.password.trim().length < 6) {
+        this.$message.error("密码不少于6位！")
+        return false;
+      }
+      if (this.registerForm.code.trim().length !== 6) {
+        this.$message.error("请输入正确的验证码！")
+        return false;
+      }
+      this.request.post("/user/register", this.registerForm).then(data => {
+        if (data.code === 200) {
+          this.$notify.success({
+            title: "注册成功",
+          });
+          this.$router.go(0)
+        } else {
+          this.$notify.error({
+            title: "注册失败",
+            message: data.message
+          });
+        }
+      })
+    },
+    getCode() {
+      this.request.get("/user/code", {
+        params: {
+          username: this.registerForm.username
+        }
+      }).then(data => {
+        if (data.code === 200) {
+          this.$notify.success({
+            title: "成功",
+            message: data.message
+          });
+        } else {
+          this.$notify.error({
+            title: "失败",
+            message: data.message
+          });
+        }
+      });
     }
   }
 }

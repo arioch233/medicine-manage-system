@@ -9,12 +9,12 @@ export default new Vuex.Store({
         tabList: [
             {
                 name: '首页',
-                path: '/index',
+                path: '/',
             },
         ],                  // 面包屑
         userId: null,       // 用户id
         roleList: null,     // 角色列表
-        avatarUrl: null,    // 头像地址
+        avatar: null,    // 头像地址
         nickname: null,     // 昵称
         intro: null,     // 用户简介
         webSite: null,      //  站点信息
@@ -48,7 +48,7 @@ export default new Vuex.Store({
             state.tabList = [
                 {
                     name: '首页',
-                    path: '/index',
+                    path: '/',
                 },
             ];
         },
