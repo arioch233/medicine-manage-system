@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.moumouzhandui.mms.common.PageResult;
 import com.moumouzhandui.mms.entity.Role;
 import com.moumouzhandui.mms.pojo.dto.RoleDTO;
+import com.moumouzhandui.mms.pojo.dto.UserRoleDTO;
 import com.moumouzhandui.mms.pojo.vo.ConditionVO;
 import com.moumouzhandui.mms.pojo.vo.RoleVO;
 
@@ -23,4 +24,6 @@ public interface RoleService extends IService<Role> {
     void deleteRole(List<Integer> roleIds);
 
     void updateDisableStatus(RoleVO roleVO);
+
+    List<UserRoleDTO> listRoleOptions();
 }

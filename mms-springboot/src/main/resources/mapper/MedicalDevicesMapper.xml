@@ -32,4 +32,14 @@
         FROM
         tb_medical_devices md
     </select>
+    <select id="nameAndCount" resultType="com.moumouzhandui.mms.pojo.dto.CategoryPieChartDTO">
+        SELECT
+        c.id AS id,
+        c.category_name AS categoryName,
+        ( SELECT COUNT(*) FROM tb_medical_devices md WHERE md.medical_devices_category = c.category_name ) AS cargoCount
+        FROM
+        tb_category c
+        WHERE
+        c.type = 1
+    </select>
 </mapper>

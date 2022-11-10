@@ -13,11 +13,13 @@ import com.moumouzhandui.mms.entity.RoleResource;
 import com.moumouzhandui.mms.exception.ServiceException;
 import com.moumouzhandui.mms.mapper.RoleMapper;
 import com.moumouzhandui.mms.pojo.dto.RoleDTO;
+import com.moumouzhandui.mms.pojo.dto.UserRoleDTO;
 import com.moumouzhandui.mms.pojo.vo.ConditionVO;
 import com.moumouzhandui.mms.pojo.vo.RoleVO;
 import com.moumouzhandui.mms.service.RoleMenuService;
 import com.moumouzhandui.mms.service.RoleResourceService;
 import com.moumouzhandui.mms.service.RoleService;
+import com.moumouzhandui.mms.utils.BeanCopyUtils;
 import com.moumouzhandui.mms.utils.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,9 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import static com.moumouzhandui.mms.common.CommonConst.FALSE;
+import static com.moumouzhandui.mms.common.CommonConst.TRUE;
 
 /**
  * @author 冷血毒舌
@@ -112,6 +117,16 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role>
     @Override
     public void updateDisableStatus(RoleVO roleVO) {
         this.saveOrUpdate(BeanUtil.copyProperties(roleVO, Role.class));
+    }
+
+
+    @Override
+    public List<UserRoleDTO> listRoleOptions() {
+        // 查询角色列表
+        List<Role> roleList = roleMapper.selectList(new LambdaQueryWrapper<Role>()
+                .select(Role::getId, Role::getRoleName)
+                .eq(Role::getIsDisable, FALSE));
+        return BeanCopyUtils.copyList(roleList, UserRoleDTO.class);
     }
 }
 

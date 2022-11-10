@@ -85,7 +85,8 @@ export default new Vuex.Store({
          *  更新头像
          */
         updateUserAvatar(state, avatar) {
-            state.avatarUrl = avatar.url;
+            console.log(avatar)
+            state.avatar = avatar;
         },
         /**
          * 更新用户信息

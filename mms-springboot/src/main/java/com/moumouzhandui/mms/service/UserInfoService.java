@@ -25,10 +25,9 @@ public interface UserInfoService extends IService<UserInfo> {
     /**
      * 修改用户头像
      *
-     * @param file 头像图片
      * @return 头像地址
      */
-    String updateUserAvatar(MultipartFile file,  UserDetailDTO userDetailDTO);
+    String updateUserAvatar(String avatarUrl,  UserDetailDTO userDetailDTO);
 
     /**
      * 绑定用户邮箱

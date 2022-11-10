@@ -4,13 +4,13 @@
     <div class="title">{{ this.$route.name }}</div>
     <br>
     <br>
-    <el-tabs v-model="activeName" @tab-click="handleClick">
+    <el-tabs v-model="activeName">
       <!-- 修改信息 -->
       <el-tab-pane label="修改信息" name="info">
         <div class="info-container">
           <el-upload
               class="avatar-uploader"
-              action="/api/users/avatar"
+              action="/api/file/image/upload"
               :show-file-list="false"
               :on-success="updateAvatar"
           >
@@ -92,22 +92,26 @@ export default {
         newPassword: "",
         confirmPassword: ""
       },
-      activeName: "info"
+      activeName: "info",
+      avatarUrl: "",
     }
   },
 
   methods: {
-    handleClick(tab) {
-      if (tab.index === 2 && this.notice === "") {
-        this.request.get("/admin/notice").then(data => {
-          this.notice = data.data;
-        });
-      }
-    },
     updateAvatar(response) {
+      console.log(response)
       if (response.code === 200) {
-        this.$message.success(response.message);
-        this.$store.commit("updateAvatar", response.data);
+        this.avatarUrl = response.data;
+        this.request.put("/users/avatar", {
+          avatarUrl: this.avatarUrl
+        }).then(data => {
+          if (data.code === 200) {
+            this.$message.success(response.message);
+            this.$store.commit("updateUserAvatar", response.data);
+          } else {
+            this.$message.error(response.message);
+          }
+        })
       } else {
         this.$message.error(response.message);
       }
@@ -119,7 +123,7 @@ export default {
       }
       this.request.put("/user/info", this.infoForm).then(data => {
         if (data.code === 200) {
-          this.$message.success(data.message);
+          this.$message.success("头像更新成功！");
           this.$store.commit("updateUserInfo", this.infoForm);
         } else {
           this.$message.error(data.message);

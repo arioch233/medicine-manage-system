@@ -39,4 +39,10 @@ public class ConditionVO {
      */
     @ApiModelProperty(name = "categoryType", value = "分类类型", dataType = "Integer")
     private Integer categoryType;
+
+    /**
+     * 登录类型
+     */
+    @ApiModelProperty(name = "loginType", value = "登录类型", dataType = "Integer")
+    private Integer loginType;
 }

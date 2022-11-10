@@ -3,6 +3,8 @@ package com.moumouzhandui.mms.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.moumouzhandui.mms.common.PageResult;
+import com.moumouzhandui.mms.common.enums.LoginTypeEnum;
 import com.moumouzhandui.mms.common.enums.RoleEnum;
 import com.moumouzhandui.mms.entity.UserAuth;
 import com.moumouzhandui.mms.entity.UserInfo;
@@ -12,10 +14,14 @@ import com.moumouzhandui.mms.mapper.UserAuthMapper;
 import com.moumouzhandui.mms.mapper.UserInfoMapper;
 import com.moumouzhandui.mms.mapper.UserRoleMapper;
 import com.moumouzhandui.mms.pojo.dto.EmailDTO;
+import com.moumouzhandui.mms.pojo.dto.UserBackDTO;
 import com.moumouzhandui.mms.pojo.dto.UserDetailDTO;
+import com.moumouzhandui.mms.pojo.vo.AddUserVO;
+import com.moumouzhandui.mms.pojo.vo.ConditionVO;
 import com.moumouzhandui.mms.pojo.vo.PasswordVO;
 import com.moumouzhandui.mms.pojo.vo.UserVO;
 import com.moumouzhandui.mms.service.*;
+import com.moumouzhandui.mms.utils.PageUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
@@ -26,8 +32,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Objects;
 
+import static com.moumouzhandui.mms.common.CommonConst.DEFAULT_PASSWORD;
 import static com.moumouzhandui.mms.common.RedisPrefixConst.*;
 import static com.moumouzhandui.mms.utils.CommonUtils.checkEmail;
 import static com.moumouzhandui.mms.utils.CommonUtils.getRandomCode;
@@ -111,16 +119,53 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth>
         // 绑定用户角色
         UserRole userRole = UserRole.builder()
                 .userId(userInfo.getId())
-                .roleId(RoleEnum.ADMIN.getRoleId())
+                .roleId(RoleEnum.EMPLOYEE.getRoleId())
                 .build();
         userRoleMapper.insert(userRole);
         // 新增用户账号
         UserAuth userAuth = UserAuth.builder()
                 .userInfoId(userInfo.getId())
                 .username(user.getUsername())
+                .loginType(LoginTypeEnum.EMAIL.getType())
                 .password(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()))
                 .build();
         userAuthMapper.insert(userAuth);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void addUserAccount(AddUserVO addUserVO) {
+        //查询用户名是否存在
+        UserAuth userAuth = userAuthMapper.selectOne(new LambdaQueryWrapper<UserAuth>()
+                .select(UserAuth::getUsername)
+                .eq(UserAuth::getUsername, addUserVO.getUsername()));
+        // 校验账号是否合法
+        if (Objects.nonNull(userAuth)) {
+            throw new ServiceException(600, "该邮箱已被注册");
+        }
+        // 新增用户信息
+        UserInfo userInfo = UserInfo.builder()
+                .email(addUserVO.getUsername())
+                .nickname(addUserVO.getNickname())
+                .avatar(websiteConfigService.getWebsiteConfig().getUserAvatar())
+                .build();
+        userInfoMapper.insert(userInfo);
+        // 绑定用户角色
+        for (Integer roleId : addUserVO.getRoleId()) {
+            UserRole userRole = UserRole.builder()
+                    .userId(userInfo.getId())
+                    .roleId(roleId)
+                    .build();
+            userRoleMapper.insert(userRole);
+        }
+        // 新增用户账号
+        UserAuth addUserAuth = UserAuth.builder()
+                .userInfoId(userInfo.getId())
+                .username(addUserVO.getUsername())
+                .loginType(LoginTypeEnum.EMAIL.getType())
+                .password(BCrypt.hashpw(DEFAULT_PASSWORD, BCrypt.gensalt()))
+                .build();
+        userAuthMapper.insert(addUserAuth);
     }
 
     /**
@@ -172,7 +217,12 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth>
         }
     }
 
-
+    @Override
+    public PageResult<UserBackDTO> listUsers(ConditionVO condition) {
+        Long count = userAuthMapper.userCount(condition);
+        List<UserBackDTO> userBackDTOList = userAuthMapper.listUsers(PageUtils.getLimitCurrent(), PageUtils.getSize(), condition);
+        return new PageResult<>(userBackDTOList, count);
+    }
 }
 
 

@@ -117,6 +117,12 @@
             <artifactId>hutool-all</artifactId>
             <version>5.8.9</version>
         </dependency>
+        <!-- houbb -->
+        <dependency>
+            <groupId>com.github.houbb</groupId>
+            <artifactId>sensitive-word</artifactId>
+            <version>0.2.0</version>
+        </dependency>
         <!-- alibaba的json格式化对象 -->
         <dependency>
             <groupId>com.alibaba.fastjson2</groupId>

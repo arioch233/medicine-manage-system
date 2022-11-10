@@ -36,4 +36,22 @@
         FROM
         tb_drug d
     </select>
+
+    <select id="nameAndCount" resultType="com.moumouzhandui.mms.pojo.dto.CategoryPieChartDTO">
+        SELECT
+        c.id AS id,
+        c.category_name AS categoryName,
+        (
+        SELECT
+        COUNT(*)
+        FROM
+        tb_drug d
+        WHERE
+        d.drug_category = c.category_name
+        ) AS cargoCount
+        FROM
+        tb_category c
+        WHERE
+        c.type = 0
+    </select>
 </mapper>

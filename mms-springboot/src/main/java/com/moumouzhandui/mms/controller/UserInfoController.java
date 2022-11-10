@@ -4,18 +4,14 @@ import com.moumouzhandui.mms.common.Result;
 import com.moumouzhandui.mms.pojo.dto.UserDetailDTO;
 import com.moumouzhandui.mms.pojo.vo.*;
 import com.moumouzhandui.mms.service.UserInfoService;
-import com.moumouzhandui.mms.utils.UserUtils;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 用户信息控制器
@@ -23,6 +19,7 @@ import java.util.Map;
  * @author 冷血毒舌
  * @create 2022/11/7 0:27
  */
+@Slf4j
 @Api(tags = "用户信息模块")
 @RestController
 public class UserInfoController {
@@ -30,17 +27,6 @@ public class UserInfoController {
     @Autowired
     private UserInfoService userInfoService;
 
-
-    @GetMapping("/user/info")
-    public Result getUserInfo(Authentication authentication) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("Principal", authentication.getPrincipal());
-//        map.put("Name", authentication.getName());
-//        map.put("Credentials", authentication.getCredentials());
-//        map.put("Authorities", authentication.getAuthorities());
-        map.put("userDetailDTO", UserUtils.getLoginUser());
-        return Result.success(map);
-    }
 
     /**
      * 更新用户信息
@@ -59,15 +45,14 @@ public class UserInfoController {
     /**
      * 更新用户头像
      *
-     * @param file 文件
      * @return {@link Result} 头像地址
      */
     @ApiOperation(value = "更新用户头像")
-    @ApiImplicitParam(name = "file", value = "用户头像", required = true, dataType = "MultipartFile")
-    @PostMapping("/users/avatar")
-    public Result updateUserAvatar(MultipartFile file, Authentication authentication) {
+    @PutMapping("/users/avatar")
+    public Result updateUserAvatar(@RequestBody AvatarVO avatarVO, Authentication authentication) {
+        log.error(avatarVO.getAvatarUrl());
         UserDetailDTO userDetailDTO = (UserDetailDTO) authentication.getPrincipal();
-        return Result.success(userInfoService.updateUserAvatar(file, userDetailDTO));
+        return Result.success(userInfoService.updateUserAvatar(avatarVO.getAvatarUrl(), userDetailDTO));
     }
 
     /**
@@ -91,7 +76,7 @@ public class UserInfoController {
      * @return {@link Result}
      */
     @ApiOperation(value = "修改用户角色")
-    @PutMapping("/admin/users/role")
+    @PutMapping("/users/role")
     public Result updateUserRole(@Valid @RequestBody UserRoleVO userRoleVO) {
         userInfoService.updateUserRole(userRoleVO);
         return Result.success();
@@ -104,7 +89,7 @@ public class UserInfoController {
      * @return {@link Result}
      */
     @ApiOperation(value = "修改用户禁用状态")
-    @PutMapping("/admin/users/disable")
+    @PutMapping("/users/disable")
     public Result updateUserDisable(@Valid @RequestBody UserDisableVO userDisableVO) {
         userInfoService.updateUserDisable(userDisableVO);
         return Result.success();
@@ -119,9 +104,8 @@ public class UserInfoController {
      */
     @ApiOperation(value = "查看在线用户")
     @GetMapping("/user/online")
-    public Result listOnlineUsers(ConditionVO conditionVO, Authentication authentication) {
-//        return Result.success(userInfoService.listOnlineUsers(conditionVO));
-        return Result.success(authentication.getPrincipal());
+    public Result listOnlineUsers(ConditionVO conditionVO) {
+        return Result.success(userInfoService.listOnlineUsers(conditionVO));
     }
 
     /**

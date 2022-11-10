@@ -1,3 +1,6 @@
+server:
+  port: 9090
+
 spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
@@ -39,4 +42,11 @@ logging:
     root: info
     com.moumouzhandui.mms: debug
   file:
-    name: log/mms-develop.log
+    name: mms-springboot/log/mms-develop.log
+
+files:
+  upload:
+    path:
+      images: E:\JavaProgram\Spring\MedicineManageSystem\mms-springboot\files\images\
+  url:
+    base: "http://localhost:9090/file/image/download/"

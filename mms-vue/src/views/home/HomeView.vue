@@ -49,12 +49,18 @@
     <el-row :gutter="30" style="margin-top: 30px">
       <el-col :span="10" :offset="1">
         <el-card>
-          1
+          <div class="e-title">医疗药品分类统计</div>
+          <div style="height:400px" >
+            <v-chart :options="drugCategory" v-loading="loading" class="echarts"/>
+          </div>
         </el-card>
       </el-col>
-      <el-col :span="10" :offset="2">
+      <el-col :span="10" :offset="1">
         <el-card>
-          1
+          <div class="e-title">医疗器材分类统计</div>
+          <div style="height:400px" >
+            <v-chart :options="medicalDeviceCategory" v-loading="loading"/>
+          </div>
         </el-card>
       </el-col>
     </el-row>
@@ -64,15 +70,107 @@
 <script>
 export default {
   name: "HomeView",
+  created() {
+    this.loadCount();
+  },
   data() {
     return {
+      loading: true,
       drugCount: "666",
       medicalDeviceCount: "666",
       userCount: "666",
       orderCount: "666",
+      drugCategory: {
+        color: [
+          "#7EC0EE",
+          "#FF9F7F",
+          "#FFD700",
+          "#C9C9C9",
+          "#E066FF",
+          "#C0FF3E"
+        ],
+        legend: {
+          data: [
+            {
+              value: 11,
+              name: "22"
+            }
+          ],
+          bottom: "bottom"
+        },
+        tooltip: {
+          trigger: "item"
+        },
+        series: [
+          {
+            name: "医疗药品分类",
+            type: "pie",
+            roseType: "radius",
+            data: []
+          }
+        ]
+      },
+      medicalDeviceCategory: {
+        color: [
+          "#7EC0EE",
+          "#FF9F7F",
+          "#FFD700",
+          "#C9C9C9",
+          "#E066FF",
+          "#C0FF3E"
+        ],
+        legend: {
+          data: [],
+          bottom: "bottom"
+        },
+        tooltip: {
+          trigger: "item"
+        },
+        series: [
+          {
+            name: "医疗器材分类",
+            type: "pie",
+            roseType: "radius",
+            data: []
+          }
+        ]
+      },
     }
   },
-  methods: {}
+  methods: {
+    loadCount() {
+      this.request.get("/website/info").then(data => {
+        this.drugCount = data.data.drugCount;
+        this.medicalDeviceCount = data.data.medicalDeviceCount;
+        this.userCount = data.data.userCount;
+        this.orderCount = data.data.orderCount;
+
+      })
+      this.request.get("/website/pie-chart").then(data => {
+        if (data.data.drugCategory != null) {
+          data.data.drugCategory.forEach(item => {
+            this.drugCategory.series[0].data.push({
+              value: item.cargoCount,
+              name: item.categoryName
+            });
+            this.drugCategory.legend.data.push(item.categoryName);
+          });
+        }
+        if (data.data.medicalDeviceCategory != null) {
+          data.data.medicalDeviceCategory.forEach(item => {
+            this.medicalDeviceCategory.series[0].data.push({
+              value: item.cargoCount,
+              name: item.categoryName
+            });
+            this.medicalDeviceCategory.legend.data.push(item.categoryName);
+          });
+        }
+        this.loading = false;
+      })
+
+    }
+
+  }
 }
 </script>
 

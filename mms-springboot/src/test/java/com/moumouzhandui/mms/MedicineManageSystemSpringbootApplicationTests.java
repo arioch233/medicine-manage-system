@@ -3,11 +3,12 @@ package com.moumouzhandui.mms;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class MmsSpringbootApplicationTests {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+class MedicineManageSystemSpringbootApplicationTests {
 
     @Test
     void contextLoads() {
+
     }
 
 }

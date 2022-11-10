@@ -39,6 +39,10 @@ public class Result {
         return new Result(StatusCodeEnum.SUCCESS.getCode(), "", data);
     }
 
+    public static Result success(String message) {
+        return new Result(StatusCodeEnum.SUCCESS.getCode(), message, null);
+    }
+
     public static Result error() {
         return new Result(StatusCodeEnum.FAIL.getCode(), StatusCodeEnum.FAIL.getDescription(), null);
     }

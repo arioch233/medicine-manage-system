@@ -17,12 +17,10 @@ import com.moumouzhandui.mms.service.UserInfoService;
 import com.moumouzhandui.mms.service.UserRoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -69,21 +67,19 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo>
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public String updateUserAvatar(MultipartFile file,  UserDetailDTO userDetailDTO) {
-        // 头像上传
-        String avatar = "";
+    public String updateUserAvatar(String avatarUrl, UserDetailDTO userDetailDTO) {
         // 更新用户信息
         UserInfo userInfo = UserInfo.builder()
                 .id(userDetailDTO.getUserInfoId())
-                .avatar(avatar)
+                .avatar(avatarUrl)
                 .build();
         userInfoMapper.updateById(userInfo);
-        return avatar;
+        return avatarUrl;
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void saveUserEmail(EmailVO emailVO,  UserDetailDTO userDetailDTO) {
+    public void saveUserEmail(EmailVO emailVO, UserDetailDTO userDetailDTO) {
         if (!emailVO.getCode().equals(redisService.hGet(WEBSITE_NAME, USER_CODE_KEY + emailVO.getEmail()).toString())) {
             throw new ServiceException(600, "验证码错误！");
         }

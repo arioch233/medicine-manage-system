@@ -53,4 +53,9 @@ public class CommonConst {
      * 默认的配置id
      */
     public static final Integer DEFAULT_CONFIG_ID = 1;
+
+    /**
+     * 默认密码
+     */
+    public static final String DEFAULT_PASSWORD = "123456";
 }

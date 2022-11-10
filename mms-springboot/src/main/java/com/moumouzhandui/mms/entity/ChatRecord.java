@@ -6,43 +6,49 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * @TableName tb_user_auth
+ * @author 冷血毒舌
+ * @create 2022/11/10 8:23
  */
-@TableName(value = "tb_user_auth")
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class UserAuth implements Serializable {
+@TableName("tb_chat_record")
+public class ChatRecord {
+
     /**
-     *
+     * 主键
      */
-    @TableId(type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
-     * 用户信息id
+     * 用户id
      */
-    private Integer userInfoId;
+    private Integer userId;
 
     /**
-     * 登录类型
+     * 用户昵称
      */
-    private Integer loginType;
+    private String nickname;
 
     /**
-     * 用户名
+     * 用户头像
      */
-    private String username;
+    private String avatar;
 
     /**
-     * 密码
+     * 聊天内容
      */
-    private String password;
+    private String content;
+
+    /**
+     * 类型
+     */
+    private Integer type;
 
     /**
      * 用户登录ip
@@ -61,16 +67,10 @@ public class UserAuth implements Serializable {
     private LocalDateTime createTime;
 
     /**
-     * 更新时间
+     * 修改时间
      */
     @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
 
-    /**
-     * 上次登录时间
-     */
-    private LocalDateTime lastLoginTime;
 
-    @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
 }

@@ -1,9 +1,6 @@
-server:
-  port: 9090
-
 spring:
   profiles:
-    active: develop
+    active: production
   servlet:
     multipart:
       enabled: true
@@ -38,12 +35,7 @@ mybatis-plus:
     auto-mapping-behavior: full
   mapper-locations: classpath:mapper/*.xml  # 扫描所有mybatis的配置文件
 
-files:
-  upload:
-    path:
-      images: E:\JavaProgram\Spring\MedicineManageSystem\mms-springboot\files\images\
-  url:
-    base: "http://localhost:9090/file/image/download/"
+
 
 
 

@@ -231,14 +231,16 @@ export default {
             title: "成功",
             message: data.message
           });
-          this.listRoles();
+          this.load();
+          this.isDelete = false;
+
         } else {
           this.$notify.error({
             title: "失败",
             message: data.message
           });
         }
-        this.isDelete = false;
+
       });
     },
   }
