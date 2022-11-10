@@ -24,3 +24,5 @@ mms-springboot/mvnw
 mms-springboot/log/mms*
 mms-springboot/files/images/*
 
+deploy/docker/mms-0.0.1.jar
+deploy/nginx/mms
