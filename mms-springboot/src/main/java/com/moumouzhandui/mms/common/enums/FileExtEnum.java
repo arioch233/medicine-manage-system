@@ -5,36 +5,48 @@ import lombok.Getter;
 
 /**
  * 文件扩展名枚举
+ *
  * @author 冷血毒舌
  * @create 2022/11/10 8:29
  */
 @Getter
 @AllArgsConstructor
 public enum FileExtEnum {
+
+    /**
+     * gif文件
+     */
+    GIF(".gif", "gif文件"),
+
     /**
      * jpg文件
      */
     JPG(".jpg", "jpg文件"),
+
     /**
      * png文件
      */
     PNG(".png", "png文件"),
+
     /**
      * Jpeg文件
      */
     JPEG(".jpeg", "jpeg文件"),
+
     /**
      * wav文件
      */
     WAV(".wav", "wav文件"),
+
     /**
      * md文件
      */
-    MD(".md","markdown文件"),
+    MD(".md", "markdown文件"),
+
     /**
      * txt文件
      */
-    TXT(".txt","txt文件");
+    TXT(".txt", "txt文件");
 
     /**
      * 获取文件格式

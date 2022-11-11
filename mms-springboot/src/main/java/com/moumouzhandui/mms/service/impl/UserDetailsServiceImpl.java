@@ -62,7 +62,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .select(UserAuth::getId, UserAuth::getUserInfoId, UserAuth::getUsername, UserAuth::getPassword)
                 .eq(UserAuth::getUsername, username));
         if (Objects.isNull(userAuth)) {
-            throw new ServiceException(600, "用户名不存在!");
+            throw new ServiceException(600, "账号或密码错误!");
         }
         // 封装登录信息
         return convertUserDetail(userAuth, httpServletRequest);

@@ -52,7 +52,7 @@ public class UserInfoController {
     public Result updateUserAvatar(@RequestBody AvatarVO avatarVO, Authentication authentication) {
         log.error(avatarVO.getAvatarUrl());
         UserDetailDTO userDetailDTO = (UserDetailDTO) authentication.getPrincipal();
-        return Result.success(userInfoService.updateUserAvatar(avatarVO.getAvatarUrl(), userDetailDTO));
+        return Result.success(userInfoService.updateUserAvatar(avatarVO.getAvatarUrl(), userDetailDTO), "头像更新成功");
     }
 
     /**

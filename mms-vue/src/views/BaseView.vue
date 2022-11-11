@@ -21,6 +21,7 @@
       <el-footer style="height: 30px;background:#F7F9FB;margin: 0;padding: 0" class="mt-10">
         <Footer/>
       </el-footer>
+      <ChatRoom v-if="this.$store.state.webSite.isChatRoom ===1"/>
     </el-container>
   </el-container>
 </template>
@@ -30,17 +31,19 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Aside from "@/components/layout/Aside";
+import ChatRoom from "@/components/chat/ChatRoom";
 
 export default {
   name: "BaseView",
   components: {
-    Header, Footer, Aside
+    Header, Footer, Aside, ChatRoom
   },
   computed: {
     isHide() {
       return this.$store.state.collapse ? "hideSideBar" : "";
     }
-  }
+  },
+
 }
 </script>
 

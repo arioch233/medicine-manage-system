@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1256",
+      "name": "语音",
+      "font_class": "yuyin",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "1727472",
+      "name": "233键盘-线性",
+      "font_class": "jianpan-xianxing",
+      "unicode": "e8ce",
+      "unicode_decimal": 59598
+    },
+    {
+      "icon_id": "12662250",
+      "name": "表情",
+      "font_class": "biaoqing",
+      "unicode": "e674",
+      "unicode_decimal": 58996
+    },
+    {
+      "icon_id": "18171099",
+      "name": "纸飞机,折纸,发送",
+      "font_class": "paper-full",
+      "unicode": "ea0b",
+      "unicode_decimal": 59915
+    },
+    {
       "icon_id": "4194150",
       "name": "用户管理",
       "font_class": "yonghuguanli",

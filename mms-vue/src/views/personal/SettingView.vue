@@ -99,17 +99,16 @@ export default {
 
   methods: {
     updateAvatar(response) {
-      console.log(response)
       if (response.code === 200) {
         this.avatarUrl = response.data;
         this.request.put("/users/avatar", {
           avatarUrl: this.avatarUrl
         }).then(data => {
           if (data.code === 200) {
-            this.$message.success(response.message);
+            this.$message.success(data.message);
             this.$store.commit("updateUserAvatar", response.data);
           } else {
-            this.$message.error(response.message);
+            this.$message.error(data.message);
           }
         })
       } else {
@@ -123,7 +122,7 @@ export default {
       }
       this.request.put("/user/info", this.infoForm).then(data => {
         if (data.code === 200) {
-          this.$message.success("头像更新成功！");
+          this.$message.success("个人信息更新成功！");
           this.$store.commit("updateUserInfo", this.infoForm);
         } else {
           this.$message.error(data.message);

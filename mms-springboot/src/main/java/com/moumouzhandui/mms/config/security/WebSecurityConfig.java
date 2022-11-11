@@ -119,10 +119,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionRegistry(sessionRegistry());
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(userDetailsService);
+//    }
 
 //    @Override
 //    public void configure(WebSecurity web) throws Exception {

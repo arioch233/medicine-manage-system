@@ -99,7 +99,7 @@ public class UserAuthController {
     public Result updateAdminPassword(@Valid @RequestBody PasswordVO passwordVO, Authentication authentication) {
         UserDetailDTO userDetailDTO = (UserDetailDTO) authentication.getPrincipal();
         userAuthService.updateAdminPassword(passwordVO, userDetailDTO);
-        return Result.success();
+        return Result.success("密码修改成功！");
     }
 
     /**

@@ -13,6 +13,12 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum FilePathEnum {
+
+    /**
+     * 通用图片路径
+     */
+    IMAGES("images/", "通用图片路径"),
+
     /**
      * 头像路径
      */

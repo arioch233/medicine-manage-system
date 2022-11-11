@@ -148,6 +148,9 @@ export default {
             title: "登录成功",
             message: data.message
           });
+          this.request.get("/config/website").then(data => {
+            this.$store.state.webSite = data.data;
+          })
           that.$router.push({path: "/"})
         } else {
           this.$notify.error({

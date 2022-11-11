@@ -15,7 +15,7 @@
             <el-form-item label="用户头像">
               <el-upload
                   class="avatar-uploader"
-                  action="/api/admin/config/images"
+                  action="/api/file/image/upload"
                   :show-file-list="false"
                   :on-success="handleUserAvatarSuccess"
               >
@@ -32,7 +32,7 @@
         <el-form-item label="默认产品封面">
           <el-upload
               class="cover-uploader"
-              action="/api/admin/config/images"
+              action="/api/file/image/upload"
               :before-upload="beforeUpload"
               :show-file-list="false"
               :on-success="handleArticleCoverSuccess"
@@ -126,7 +126,7 @@ export default {
       this.websiteConfigForm.userAvatar = response.data;
     },
     handleArticleCoverSuccess(response) {
-      this.websiteConfigForm.articleCover = response.data;
+      this.websiteConfigForm.cargoCover = response.data;
     },
     updateWebsiteConfig() {
       this.request
@@ -137,6 +137,7 @@ export default {
                 title: "成功",
                 message: data.message
               });
+              window.location.reload()
             } else {
               this.$notify.error({
                 title: "失败",

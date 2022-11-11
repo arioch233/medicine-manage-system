@@ -44,9 +44,18 @@ logging:
   file:
     name: log/mms-production.log
 
+# 上传模式
+upload:
+  mode: local
+  local:
+    # nginx映射本地文件路径，无域名则为 ip:82
+    url: http://110.40.178.205:82/
+    # 本地文件存储路径
+    path: /usr/local/upload/
+
 files:
   upload:
     path:
       images: /home/ubuntu/my_project/mms/mms-springboot/files/images/
   url:
-    base: "http://110.40.178.205:9090/file/image/download/"
+    base: "http://110.40.178.205:9999/file/image/download/"

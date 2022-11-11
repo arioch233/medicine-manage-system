@@ -1,10 +1,13 @@
 package com.moumouzhandui.mms.controller;
 
 import com.moumouzhandui.mms.common.Result;
+import com.moumouzhandui.mms.common.enums.FilePathEnum;
 import com.moumouzhandui.mms.pojo.vo.ConditionVO;
 import com.moumouzhandui.mms.service.IFileService;
+import com.moumouzhandui.mms.strategy.context.UploadStrategyContext;
 import com.moumouzhandui.mms.utils.MyFileUtils;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,6 +38,9 @@ public class FileController {
     @Autowired
     private IFileService iFileService;
 
+    @Autowired
+    private UploadStrategyContext uploadStrategyContext;
+
 
     /**
      * 获取当前文件列表
@@ -57,8 +63,16 @@ public class FileController {
     @ApiOperation(value = "上传图片")
     @PostMapping("/image/upload")
     public Result uploadFile(@RequestParam MultipartFile file) throws IOException {
-        return Result.success(iFileService.saveImageFile(file, imageUploadPath, imageBaseURL));
+        return Result.success(iFileService.saveImageFile(file, imageUploadPath, imageBaseURL), "上传成功");
     }
+
+    @ApiOperation(value = "上传图片")
+    @ApiImplicitParam(name = "file", value = "图片", required = true, dataType = "MultipartFile")
+    @PostMapping("/upload")
+    public Result saveImageFile(MultipartFile file) {
+        return Result.success(uploadStrategyContext.executeUploadStrategy(file, FilePathEnum.IMAGES.getPath()));
+    }
+
 
     /**
      * 图片下载

@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 /**
- * @author 冷血毒舌
- * @create 2022/11/10 8:23
+ * @TableName tb_chat_record
  */
 @Data
 @Builder

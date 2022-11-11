@@ -48,6 +48,9 @@ Vue.filter("date", function (value, formatStr = "YYYY-MM-DD") {
 Vue.filter("dateTime", function (value, formatStr = "YYYY-MM-DD HH:mm:ss") {
     return dayjs(value).format(formatStr);
 });
+Vue.filter("hour", function (value) {
+    return dayjs(value).format("HH:mm:ss");
+});
 
 NProgress.configure({
     easing: "ease", // 动画方式

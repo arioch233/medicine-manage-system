@@ -134,7 +134,7 @@
                 <el-upload
                     class="upload-drug-img"
                     drag
-                    action="http://localhost:9090/file/image/upload"
+                    action="/api/file/image/upload"
                     multiple
                     :before-upload="beforeUpload"
                     :on-success="uploadCover"

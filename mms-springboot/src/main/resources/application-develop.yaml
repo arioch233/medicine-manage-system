@@ -44,6 +44,15 @@ logging:
   file:
     name: mms-springboot/log/mms-develop.log
 
+# 上传模式
+upload:
+  mode: local
+  local:
+    # nginx映射本地文件路径，无域名则为 ip:82
+    url: http://localhost:9090/file/image/download/
+    # 本地文件存储路径
+    path: E:\JavaProgram\Spring\MedicineManageSystem\mms-springboot\files\
+
 files:
   upload:
     path:

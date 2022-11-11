@@ -43,6 +43,10 @@ public class Result {
         return new Result(StatusCodeEnum.SUCCESS.getCode(), message, null);
     }
 
+    public static Result success(Object data, String message) {
+        return new Result(StatusCodeEnum.SUCCESS.getCode(), message, data);
+    }
+
     public static Result error() {
         return new Result(StatusCodeEnum.FAIL.getCode(), StatusCodeEnum.FAIL.getDescription(), null);
     }

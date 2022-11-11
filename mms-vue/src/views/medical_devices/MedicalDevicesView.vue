@@ -131,7 +131,7 @@
                 <el-upload
                     class="upload-drug-img"
                     drag
-                    action="http://localhost:9090/file/image/upload"
+                    action="/api/file/image/upload"
                     multiple
                     :before-upload="beforeUpload"
                     :on-success="uploadCover"
@@ -353,7 +353,7 @@ export default {
             title: "成功",
             message: data.message
           });
-          this.listDrug();
+          this.listMedicalDevices();
         } else {
           this.$notify.error({
             title: "失败",
@@ -364,7 +364,8 @@ export default {
       });
     },
     uploadCover(response) {
-      this.drugForm.drugCover = response.data;
+      console.log(response)
+      this.medicalDevicesForm.medicalDevicesCover = response.data;
     },
     beforeUpload(file) {
       return new Promise(resolve => {
