@@ -11,6 +11,7 @@ import com.moumouzhandui.mms.entity.Role;
 import com.moumouzhandui.mms.entity.RoleMenu;
 import com.moumouzhandui.mms.entity.RoleResource;
 import com.moumouzhandui.mms.exception.ServiceException;
+import com.moumouzhandui.mms.handle.security.FilterInvocationSecurityMetadataSourceImpl;
 import com.moumouzhandui.mms.mapper.RoleMapper;
 import com.moumouzhandui.mms.pojo.dto.RoleDTO;
 import com.moumouzhandui.mms.pojo.dto.UserRoleDTO;
@@ -31,7 +32,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.moumouzhandui.mms.common.CommonConst.FALSE;
-import static com.moumouzhandui.mms.common.CommonConst.TRUE;
 
 /**
  * @author 冷血毒舌
@@ -43,12 +43,14 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role>
         implements RoleService {
 
     @Resource
-    RoleMapper roleMapper;
+    private RoleMapper roleMapper;
     @Autowired
-    RoleResourceService roleResourceService;
+    private RoleResourceService roleResourceService;
     @Autowired
-    RoleMenuService roleMenuService;
-
+    private RoleMenuService roleMenuService;
+    @Autowired
+    private FilterInvocationSecurityMetadataSourceImpl filterInvocationSecurityMetadataSourceImpl;
+    ;
 
     @Override
     public PageResult<RoleDTO> listRole(ConditionVO conditionVO) {
@@ -90,6 +92,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role>
                     .collect(Collectors.toList());
             roleResourceService.saveBatch(roleResourceList);
             // 重新加载角色资源信息
+            filterInvocationSecurityMetadataSourceImpl.clearDataSource();
         }
         // 更新角色菜单关系
         if (Objects.nonNull(roleVO.getMenuIdList())) {

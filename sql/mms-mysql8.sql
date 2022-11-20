@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 10/11/2022 10:53:57
+ Date: 20/11/2022 14:30:41
 */
 
 SET NAMES utf8mb4;
@@ -31,12 +31,18 @@ CREATE TABLE `sys_file`  (
   `enable` tinyint(1) NULL DEFAULT 0 COMMENT '是否禁用链接(1:是  0:否)',
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 53 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_file
 -- ----------------------------
-INSERT INTO `sys_file` VALUES (25, 'ff8b7d7c4d084d288a0898c527ca7635-2022-11-10-00-14-09.gif', 'gif', 596, 'http://localhost:9090/file/image/download/ff8b7d7c4d084d288a0898c527ca7635-2022-11-10-00-14-09.gif', '0d8a6ccb95debb953849d4b7a0795d56', 1, '2022-11-10 00:14:09');
+INSERT INTO `sys_file` VALUES (44, 'f6a6510ae10a4565b5104567d17ab435-2022-11-10-23-54-55.gif', 'gif', 384, 'http://localhost:9090/file/image/download/f6a6510ae10a4565b5104567d17ab435-2022-11-10-23-54-55.gif', '3bf0574718532db771c3296ab76de485', 1, '2022-11-10 23:54:56');
+INSERT INTO `sys_file` VALUES (45, '12121b2534724a7e89dc80856470bbc2-2022-11-10-23-55-03.gif', 'gif', 979, 'http://localhost:9090/file/image/download/12121b2534724a7e89dc80856470bbc2-2022-11-10-23-55-03.gif', 'f4c2f011b32ac1e1d075b35696557db5', 1, '2022-11-10 23:55:03');
+INSERT INTO `sys_file` VALUES (46, 'a902debf93b644aaa16380aca4cd7eed-2022-11-10-23-55-09.gif', 'gif', 979, 'http://localhost:9090/file/image/download/12121b2534724a7e89dc80856470bbc2-2022-11-10-23-55-03.gif', 'f4c2f011b32ac1e1d075b35696557db5', 1, '2022-11-10 23:55:10');
+INSERT INTO `sys_file` VALUES (50, '1645bb1fb8424c759130b3ed75c9cc26-2022-11-11-14-47-02.gif', 'gif', 346, 'http://localhost:9090/file/image/download/1645bb1fb8424c759130b3ed75c9cc26-2022-11-11-14-47-02.gif', '028971170f292c48f87ac30c0b5c31e1', 1, '2022-11-11 14:47:03');
+INSERT INTO `sys_file` VALUES (51, '8cc090a00b13434e8d244fa83ab884b8-2022-11-11-16-25-33.gif', 'gif', 830, 'http://localhost:9090/file/image/download/8cc090a00b13434e8d244fa83ab884b8-2022-11-11-16-25-33.gif', '10a0681389d2391bc5a09b83bdfb6b4f', 1, '2022-11-11 16:25:33');
+INSERT INTO `sys_file` VALUES (52, '86f82ae02f2c479289b942d34e504da4-2022-11-11-17-34-11.gif', 'gif', 53, 'http://localhost:9090/file/image/download/86f82ae02f2c479289b942d34e504da4-2022-11-11-17-34-11.gif', '1b8373cfaa3d68fbfe6ad1e40e8cce7c', 1, '2022-11-11 17:34:12');
+INSERT INTO `sys_file` VALUES (53, '47ce0c44aabe4ae6956d67110b5eaf52-2022-11-11-17-35-21.gif', 'gif', 53, 'http://localhost:9090/file/image/download/86f82ae02f2c479289b942d34e504da4-2022-11-11-17-34-11.gif', '1b8373cfaa3d68fbfe6ad1e40e8cce7c', 1, '2022-11-11 17:35:22');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -54,7 +60,7 @@ CREATE TABLE `sys_menu`  (
   `parent_id` int NULL DEFAULT NULL COMMENT '父id',
   `is_hidden` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否隐藏  0否1是',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -75,11 +81,14 @@ INSERT INTO `sys_menu` VALUES (16, '器械列表', '/medical_devices/list', '/me
 INSERT INTO `sys_menu` VALUES (17, '器械分类', '/medical_devices/category', '/medical_devices/MedicalDevicesCategoryView.vue', 'icon-fenlei', '2022-10-23 23:28:23', '2022-11-05 14:06:00', 2, 15, 0);
 INSERT INTO `sys_menu` VALUES (18, '工单管理', '/work-order-submenu', 'Layout', 'icon-gongdanguanli', '2022-10-23 23:32:49', '2022-10-23 23:33:24', 3, NULL, 0);
 INSERT INTO `sys_menu` VALUES (19, '进货管理', '/purchase_list', '/work_order/PurchaseListView.vue', 'icon-jinhuo', '2022-10-23 23:34:47', '2022-10-26 21:28:17', 2, 18, 0);
-INSERT INTO `sys_menu` VALUES (20, '个人中心', '/setting', '/personal/SettingView.vue', 'icon-gerenxinxi', '2022-10-24 00:34:41', '2022-11-01 10:50:46', 10, NULL, 1);
+INSERT INTO `sys_menu` VALUES (20, '个人中心', '/setting', '/personal/SettingView.vue', 'icon-gerenxinxi', '2022-10-24 00:34:41', '2022-11-11 16:56:35', 10, NULL, 1);
 INSERT INTO `sys_menu` VALUES (21, '网站管理', '/webconfig', '/webconfig/WebConfigView.vue', 'icon-website', '2022-10-24 00:37:54', NULL, 1, 11, 0);
 INSERT INTO `sys_menu` VALUES (22, '供货商管理', '/supplier', '/supplier/SupplierView.vue', 'icon-gonghuoshang', '2022-10-26 21:24:53', '2022-10-26 21:28:02', 1, 18, 0);
 INSERT INTO `sys_menu` VALUES (24, '用户管理', '/user-submenu', 'Layout', 'icon-yonghuguanli', '2022-11-08 13:57:45', '2022-11-08 13:58:11', 5, NULL, 0);
 INSERT INTO `sys_menu` VALUES (25, '用户列表', '/user-list', '/user/UserView.vue', 'icon-s_yonghuliebiao', '2022-11-08 13:59:26', NULL, 1, 24, 0);
+INSERT INTO `sys_menu` VALUES (26, '首页', '/', '/customer/CustomerHomeView.vue', 'icon-shouye-shouye', '2022-11-11 16:51:36', '2022-11-11 17:02:10', 8, NULL, 0);
+INSERT INTO `sys_menu` VALUES (27, '医疗药品', '/durgs', '/customer/CustomerDrugsView.vue', 'icon--yiliao-yaopin', '2022-11-11 16:53:47', '2022-11-11 16:55:57', 9, NULL, 0);
+INSERT INTO `sys_menu` VALUES (28, '医疗器械', '/medical-devices', '/customer/CustomerMedicalDevicesView.vue', 'icon-yiliaoqixie', '2022-11-11 16:57:58', '2022-11-11 16:58:13', 9, NULL, 0);
 
 -- ----------------------------
 -- Table structure for sys_resource
@@ -95,7 +104,7 @@ CREATE TABLE `sys_resource`  (
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_resource
@@ -118,14 +127,14 @@ INSERT INTO `sys_resource` VALUES (15, '查看角色资源选项', '/resource/ro
 INSERT INTO `sys_resource` VALUES (16, '更新保存资源', '/resource/update', 'POST', 12, 0, '2022-11-07 23:34:33', '2022-11-09 20:22:07');
 INSERT INTO `sys_resource` VALUES (17, '网站配置模块', NULL, NULL, NULL, 0, '2022-11-07 23:35:04', NULL);
 INSERT INTO `sys_resource` VALUES (18, '更新网站配置', '/config/update', 'PUT', 17, 0, '2022-11-07 23:35:16', '2022-11-09 21:45:37');
-INSERT INTO `sys_resource` VALUES (19, '获取网站配置', ' /config/website', 'GET', 17, 0, '2022-11-07 23:35:29', '2022-11-09 21:45:38');
+INSERT INTO `sys_resource` VALUES (19, '获取网站配置', ' /config/website', 'GET', 17, 1, '2022-11-07 23:35:29', '2022-11-10 22:17:47');
 INSERT INTO `sys_resource` VALUES (20, '用户账号模块', NULL, NULL, NULL, 0, '2022-11-07 23:35:51', NULL);
 INSERT INTO `sys_resource` VALUES (21, '修改管理员密码', '/user/admin/password', 'PUT', 20, 0, '2022-11-07 23:36:06', '2022-11-09 21:51:37');
 INSERT INTO `sys_resource` VALUES (22, '修改密码', '/user/password', 'PUT', 20, 0, '2022-11-07 23:36:21', '2022-11-09 21:51:36');
 INSERT INTO `sys_resource` VALUES (24, '文件模块', NULL, NULL, NULL, 0, '2022-11-07 23:38:48', NULL);
 INSERT INTO `sys_resource` VALUES (25, '获取当前文件列表', '/file/image/all', 'GET', 24, 0, '2022-11-07 23:38:56', '2022-11-09 21:51:33');
 INSERT INTO `sys_resource` VALUES (26, '删除图片', '/file/image/delete', 'DELETE', 24, 0, '2022-11-07 23:39:14', '2022-11-09 21:51:34');
-INSERT INTO `sys_resource` VALUES (27, '图片下载', '/file/image/download/{fileName}', 'GET', 24, 0, '2022-11-07 23:39:28', '2022-11-09 21:51:35');
+INSERT INTO `sys_resource` VALUES (27, '图片下载', '/file/image/download/{fileName}', 'GET', 24, 1, '2022-11-07 23:39:28', '2022-11-11 17:53:14');
 INSERT INTO `sys_resource` VALUES (28, '上传图片', '/file/image/upload', 'POST', 24, 0, '2022-11-07 23:39:42', '2022-11-09 21:51:35');
 
 -- ----------------------------
@@ -140,14 +149,14 @@ CREATE TABLE `sys_role`  (
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-INSERT INTO `sys_role` VALUES (1, '管理员', 'admin', 0, '2022-10-21 10:50:00', '2022-11-09 21:51:48');
-INSERT INTO `sys_role` VALUES (2, '员工', 'employee', 0, '2022-10-21 10:53:14', '2022-11-10 10:44:09');
-INSERT INTO `sys_role` VALUES (3, '客户', 'customer', 0, '2022-10-21 11:02:46', '2022-11-10 10:44:15');
+INSERT INTO `sys_role` VALUES (1, '管理员', 'admin', 0, '2022-10-21 10:50:00', '2022-11-11 17:54:33');
+INSERT INTO `sys_role` VALUES (2, '员工', 'employee', 0, '2022-10-21 10:53:14', '2022-11-11 17:54:37');
+INSERT INTO `sys_role` VALUES (3, '客户', 'customer', 0, '2022-10-21 11:02:46', '2022-11-11 17:01:21');
 INSERT INTO `sys_role` VALUES (4, '测试角色', 'test', 1, '2022-10-21 12:20:35', '2022-10-21 18:55:52');
 
 -- ----------------------------
@@ -159,7 +168,7 @@ CREATE TABLE `sys_role_menu`  (
   `role_id` int NULL DEFAULT NULL COMMENT '角色id',
   `menu_id` int NULL DEFAULT NULL COMMENT '菜单id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 403 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 438 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role_menu
@@ -197,8 +206,10 @@ INSERT INTO `sys_role_menu` VALUES (421, 2, 18);
 INSERT INTO `sys_role_menu` VALUES (422, 2, 22);
 INSERT INTO `sys_role_menu` VALUES (423, 2, 19);
 INSERT INTO `sys_role_menu` VALUES (424, 2, 20);
-INSERT INTO `sys_role_menu` VALUES (425, 3, 7);
-INSERT INTO `sys_role_menu` VALUES (426, 3, 20);
+INSERT INTO `sys_role_menu` VALUES (435, 3, 26);
+INSERT INTO `sys_role_menu` VALUES (436, 3, 27);
+INSERT INTO `sys_role_menu` VALUES (437, 3, 28);
+INSERT INTO `sys_role_menu` VALUES (438, 3, 20);
 
 -- ----------------------------
 -- Table structure for sys_role_resource
@@ -209,45 +220,42 @@ CREATE TABLE `sys_role_resource`  (
   `role_id` int NULL DEFAULT NULL COMMENT '角色id',
   `resource_id` int NULL DEFAULT NULL COMMENT '权限id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 369 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 435 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role_resource
 -- ----------------------------
-INSERT INTO `sys_role_resource` VALUES (345, 1, 1);
-INSERT INTO `sys_role_resource` VALUES (346, 1, 2);
-INSERT INTO `sys_role_resource` VALUES (347, 1, 3);
-INSERT INTO `sys_role_resource` VALUES (348, 1, 4);
-INSERT INTO `sys_role_resource` VALUES (349, 1, 5);
-INSERT INTO `sys_role_resource` VALUES (350, 1, 6);
-INSERT INTO `sys_role_resource` VALUES (351, 1, 7);
-INSERT INTO `sys_role_resource` VALUES (352, 1, 8);
-INSERT INTO `sys_role_resource` VALUES (353, 1, 9);
-INSERT INTO `sys_role_resource` VALUES (354, 1, 10);
-INSERT INTO `sys_role_resource` VALUES (355, 1, 11);
-INSERT INTO `sys_role_resource` VALUES (356, 1, 12);
-INSERT INTO `sys_role_resource` VALUES (357, 1, 13);
-INSERT INTO `sys_role_resource` VALUES (358, 1, 14);
-INSERT INTO `sys_role_resource` VALUES (359, 1, 15);
-INSERT INTO `sys_role_resource` VALUES (360, 1, 16);
-INSERT INTO `sys_role_resource` VALUES (361, 1, 17);
-INSERT INTO `sys_role_resource` VALUES (362, 1, 18);
-INSERT INTO `sys_role_resource` VALUES (363, 1, 19);
-INSERT INTO `sys_role_resource` VALUES (364, 1, 24);
-INSERT INTO `sys_role_resource` VALUES (365, 1, 25);
-INSERT INTO `sys_role_resource` VALUES (366, 1, 26);
-INSERT INTO `sys_role_resource` VALUES (367, 1, 27);
-INSERT INTO `sys_role_resource` VALUES (368, 1, 28);
-INSERT INTO `sys_role_resource` VALUES (377, 2, 6);
-INSERT INTO `sys_role_resource` VALUES (378, 2, 24);
-INSERT INTO `sys_role_resource` VALUES (379, 2, 25);
-INSERT INTO `sys_role_resource` VALUES (380, 2, 26);
-INSERT INTO `sys_role_resource` VALUES (381, 2, 27);
-INSERT INTO `sys_role_resource` VALUES (382, 2, 28);
 INSERT INTO `sys_role_resource` VALUES (383, 3, 6);
 INSERT INTO `sys_role_resource` VALUES (384, 3, 20);
 INSERT INTO `sys_role_resource` VALUES (385, 3, 21);
 INSERT INTO `sys_role_resource` VALUES (386, 3, 22);
+INSERT INTO `sys_role_resource` VALUES (409, 1, 1);
+INSERT INTO `sys_role_resource` VALUES (410, 1, 2);
+INSERT INTO `sys_role_resource` VALUES (411, 1, 3);
+INSERT INTO `sys_role_resource` VALUES (412, 1, 4);
+INSERT INTO `sys_role_resource` VALUES (413, 1, 5);
+INSERT INTO `sys_role_resource` VALUES (414, 1, 6);
+INSERT INTO `sys_role_resource` VALUES (415, 1, 7);
+INSERT INTO `sys_role_resource` VALUES (416, 1, 8);
+INSERT INTO `sys_role_resource` VALUES (417, 1, 9);
+INSERT INTO `sys_role_resource` VALUES (418, 1, 10);
+INSERT INTO `sys_role_resource` VALUES (419, 1, 11);
+INSERT INTO `sys_role_resource` VALUES (420, 1, 12);
+INSERT INTO `sys_role_resource` VALUES (421, 1, 13);
+INSERT INTO `sys_role_resource` VALUES (422, 1, 14);
+INSERT INTO `sys_role_resource` VALUES (423, 1, 15);
+INSERT INTO `sys_role_resource` VALUES (424, 1, 16);
+INSERT INTO `sys_role_resource` VALUES (425, 1, 17);
+INSERT INTO `sys_role_resource` VALUES (426, 1, 18);
+INSERT INTO `sys_role_resource` VALUES (427, 1, 24);
+INSERT INTO `sys_role_resource` VALUES (428, 1, 25);
+INSERT INTO `sys_role_resource` VALUES (429, 1, 26);
+INSERT INTO `sys_role_resource` VALUES (430, 1, 28);
+INSERT INTO `sys_role_resource` VALUES (431, 2, 6);
+INSERT INTO `sys_role_resource` VALUES (432, 2, 24);
+INSERT INTO `sys_role_resource` VALUES (433, 2, 25);
+INSERT INTO `sys_role_resource` VALUES (434, 2, 26);
+INSERT INTO `sys_role_resource` VALUES (435, 2, 28);
 
 -- ----------------------------
 -- Table structure for sys_website_config
@@ -259,12 +267,12 @@ CREATE TABLE `sys_website_config`  (
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_website_config
 -- ----------------------------
-INSERT INTO `sys_website_config` VALUES (1, '{\"cargoCover\":\"https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.austar-hearing.com%2Fuploads%2Fimage%2F20210628%2F1624848441.jpg&refer=http%3A%2F%2Fwww.austar-hearing.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1670402596&t=e82da3b44c28bdeabab880e2597a5519\",\"isChatRoom\":0,\"isEmailNotice\":0,\"userAvatar\":\"https://picx1.zhimg.com/80/v2-624c20a4ba7eadb228240791ec638f8b_720w.webp?source=1940ef5c\",\"websocketUrl\":\"http://110.40.178.205\"}', '2022-11-07 16:20:38', '2022-11-09 21:50:58');
+INSERT INTO `sys_website_config` VALUES (1, '{\"cargoCover\":\"http://localhost:9090/file/image/download/86f82ae02f2c479289b942d34e504da4-2022-11-11-17-34-11.gif\",\"isChatRoom\":1,\"isEmailNotice\":0,\"userAvatar\":\"http://localhost:9090/file/image/download/1645bb1fb8424c759130b3ed75c9cc26-2022-11-11-14-47-02.gif\",\"websocketUrl\":\"ws://127.0.0.1:9090/websocket\"}', '2022-11-07 16:20:38', '2022-11-11 17:35:24');
 
 -- ----------------------------
 -- Table structure for tb_category
@@ -278,7 +286,7 @@ CREATE TABLE `tb_category`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `type` tinyint(1) NULL DEFAULT NULL COMMENT '分类类型：1-器械；0-药品',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_category
@@ -316,11 +324,24 @@ CREATE TABLE `tb_chat_record`  (
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 39 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_chat_record
 -- ----------------------------
+INSERT INTO `tb_chat_record` VALUES (27, 3, '员工2', 'https://picx1.zhimg.com/80/v2-624c20a4ba7eadb228240791ec638f8b_720w.webp?source=1940ef5c', '<img src= \'https://static.talkxj.com/emoji/dq.jpg?\' width=\'24\'height=\'24\' style=\'margin: 0 1px;vertical-align: text-bottom\'/>', '未知ip', '', 3, '2022-11-11 16:04:39', NULL);
+INSERT INTO `tb_chat_record` VALUES (28, 1, '冷血毒舌', 'http://localhost:9090/file/image/download/f6a6510ae10a4565b5104567d17ab435-2022-11-10-23-54-55.gif', '<img src= \'https://static.talkxj.com/emoji/yinxian.jpg\' width=\'24\'height=\'24\' style=\'margin: 0 1px;vertical-align: text-bottom\'/>', '未知ip', '', 3, '2022-11-11 16:04:49', NULL);
+INSERT INTO `tb_chat_record` VALUES (29, 3, '员工2', 'https://picx1.zhimg.com/80/v2-624c20a4ba7eadb228240791ec638f8b_720w.webp?source=1940ef5c', '<img src= \'https://static.talkxj.com/emoji/dacall.jpg\' width=\'24\'height=\'24\' style=\'margin: 0 1px;vertical-align: text-bottom\'/>', '未知ip', '', 3, '2022-11-11 16:08:17', NULL);
+INSERT INTO `tb_chat_record` VALUES (30, 1, '冷血毒舌', 'http://localhost:9090/file/image/download/f6a6510ae10a4565b5104567d17ab435-2022-11-10-23-54-55.gif', 'hello<img src= \'https://static.talkxj.com/emoji/cy.jpg\' width=\'24\'height=\'24\' style=\'margin: 0 1px;vertical-align: text-bottom\'/>', '未知ip', '', 3, '2022-11-11 16:08:30', NULL);
+INSERT INTO `tb_chat_record` VALUES (31, 3, '员工2', 'https://picx1.zhimg.com/80/v2-624c20a4ba7eadb228240791ec638f8b_720w.webp?source=1940ef5c', '<img src= \'https://static.talkxj.com/emoji/huaji.jpg\' width=\'24\'height=\'24\' style=\'margin: 0 1px;vertical-align: text-bottom\'/>', '未知ip', '', 3, '2022-11-11 16:08:47', NULL);
+INSERT INTO `tb_chat_record` VALUES (32, 1, '冷血毒舌', 'http://localhost:9090/file/image/download/f6a6510ae10a4565b5104567d17ab435-2022-11-10-23-54-55.gif', '<img src= \'https://static.talkxj.com/emoji/leng.jpg\' width=\'24\'height=\'24\' style=\'margin: 0 1px;vertical-align: text-bottom\'/>', '未知ip', '', 3, '2022-11-11 16:08:57', NULL);
+INSERT INTO `tb_chat_record` VALUES (33, 1, '冷血毒舌', 'http://localhost:9090/file/image/download/f6a6510ae10a4565b5104567d17ab435-2022-11-10-23-54-55.gif', '<img src= \'https://static.talkxj.com/emoji/leng.jpg\' width=\'24\'height=\'24\' style=\'margin: 0 1px;vertical-align: text-bottom\'/>', '未知ip', '', 3, '2022-11-11 16:09:01', NULL);
+INSERT INTO `tb_chat_record` VALUES (34, 3, '员工2', 'https://picx1.zhimg.com/80/v2-624c20a4ba7eadb228240791ec638f8b_720w.webp?source=1940ef5c', '<img src= \'https://static.talkxj.com/emoji/chigua.jpg\' width=\'24\'height=\'24\' style=\'margin: 0 1px;vertical-align: text-bottom\'/>', '未知ip', '', 3, '2022-11-11 16:10:10', NULL);
+INSERT INTO `tb_chat_record` VALUES (35, 1, '冷血毒舌', 'http://localhost:9090/file/image/download/f6a6510ae10a4565b5104567d17ab435-2022-11-10-23-54-55.gif', '<img src= \'https://static.talkxj.com/emoji/miaoa.jpg\' width=\'24\'height=\'24\' style=\'margin: 0 1px;vertical-align: text-bottom\'/>', '未知ip', '', 3, '2022-11-11 16:24:15', NULL);
+INSERT INTO `tb_chat_record` VALUES (36, 2, '客户1', 'https://picx1.zhimg.com/80/v2-624c20a4ba7eadb228240791ec638f8b_720w.webp?source=1940ef5c', '<img src= \'https://static.talkxj.com/emoji/chigua.jpg\' width=\'24\'height=\'24\' style=\'margin: 0 1px;vertical-align: text-bottom\'/>', '未知ip', '', 3, '2022-11-11 16:48:02', NULL);
+INSERT INTO `tb_chat_record` VALUES (37, 2, '客户1', 'https://picx1.zhimg.com/80/v2-624c20a4ba7eadb228240791ec638f8b_720w.webp?source=1940ef5c', '创*贴<img src= \'https://static.talkxj.com/emoji/dacall.jpg\' width=\'24\'height=\'24\' style=\'margin: 0 1px;vertical-align: text-bottom\'/>', '未知ip', '', 3, '2022-11-11 17:16:29', NULL);
+INSERT INTO `tb_chat_record` VALUES (38, 2, '客户1', 'https://picx1.zhimg.com/80/v2-624c20a4ba7eadb228240791ec638f8b_720w.webp?source=1940ef5c', '啦啦啦啦啦', '未知ip', '', 3, '2022-11-11 17:16:37', NULL);
+INSERT INTO `tb_chat_record` VALUES (39, 2, '客户1', 'https://picx1.zhimg.com/80/v2-624c20a4ba7eadb228240791ec638f8b_720w.webp?source=1940ef5c', '*', '未知ip', '', 3, '2022-11-11 17:16:47', NULL);
 
 -- ----------------------------
 -- Table structure for tb_drug
@@ -343,7 +364,7 @@ CREATE TABLE `tb_drug`  (
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tb_drug
@@ -369,7 +390,7 @@ CREATE TABLE `tb_medical_devices`  (
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tb_medical_devices
@@ -412,7 +433,7 @@ CREATE TABLE `tb_supplier`  (
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tb_supplier
@@ -437,14 +458,14 @@ CREATE TABLE `tb_user_auth`  (
   `last_login_time` datetime NULL DEFAULT NULL COMMENT '上次登录时间',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `username`(`username`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_user_auth
 -- ----------------------------
-INSERT INTO `tb_user_auth` VALUES (1, 1, 'admin@qq.com', '$2a$10$GcJ6ua6I5JdB8xvvWzW5T.aAPs3q7PY3x4mt/82RuKM4Cc6a95cRu', 1, '127.0.0.1', '', '2022-11-07 18:17:32', '2022-11-10 10:49:10', '2022-11-10 10:49:09');
-INSERT INTO `tb_user_auth` VALUES (2, 2, '1738252674@qq.com', '$2a$10$zMAIl0a3QFxxqVDWN9E7I..BBAY.3Lip01RdIQFNdLPkkE6oAHYUG', 1, '127.0.0.1', '', '2022-11-10 00:58:48', '2022-11-10 10:48:21', '2022-11-10 10:48:21');
-INSERT INTO `tb_user_auth` VALUES (3, 3, 'test1@mmzd.com', '$2a$10$vRlZddlvN098D1KU1YAU7OUlHtc9.UnePDFXB3U.OFgK084y2W4l2', 1, '127.0.0.1', '', '2022-11-10 10:42:45', '2022-11-10 10:46:04', '2022-11-10 10:46:04');
+INSERT INTO `tb_user_auth` VALUES (1, 1, 'admin@qq.com', '$2a$10$imJ2rcJ8ZmLq9A4zU6Qj4umTmkPeszaFOSU6hiFkX4hh3Ek7OkiIq', 1, '127.0.0.1', '', '2022-11-07 18:17:32', '2022-11-11 17:55:54', '2022-11-11 17:55:54');
+INSERT INTO `tb_user_auth` VALUES (2, 2, '1738252674@qq.com', '$2a$10$zMAIl0a3QFxxqVDWN9E7I..BBAY.3Lip01RdIQFNdLPkkE6oAHYUG', 1, '127.0.0.1', '', '2022-11-10 00:58:48', '2022-11-11 17:57:32', '2022-11-11 17:57:31');
+INSERT INTO `tb_user_auth` VALUES (3, 3, 'test1@mmzd.com', '$2a$10$vRlZddlvN098D1KU1YAU7OUlHtc9.UnePDFXB3U.OFgK084y2W4l2', 1, '127.0.0.1', '', '2022-11-10 10:42:45', '2022-11-11 16:04:13', '2022-11-11 16:04:13');
 
 -- ----------------------------
 -- Table structure for tb_user_info
@@ -459,13 +480,13 @@ CREATE TABLE `tb_user_info`  (
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_user_info
 -- ----------------------------
-INSERT INTO `tb_user_info` VALUES (1, 'admin@qq.com', '冷血毒舌', 'http://localhost:9090/file/image/download/ff8b7d7c4d084d288a0898c527ca7635-2022-11-10-00-14-09.gif', 0, '2022-11-07 18:17:32', '2022-11-10 01:04:16');
-INSERT INTO `tb_user_info` VALUES (2, '1738252674@qq.com', '客户1', 'https://picx1.zhimg.com/80/v2-624c20a4ba7eadb228240791ec638f8b_720w.webp?source=1940ef5c', 0, '2022-11-10 00:58:48', '2022-11-10 10:48:39');
+INSERT INTO `tb_user_info` VALUES (1, 'admin@qq.com', '冷血毒舌', 'http://localhost:9090/file/image/download/8cc090a00b13434e8d244fa83ab884b8-2022-11-11-16-25-33.gif', 0, '2022-11-07 18:17:32', '2022-11-11 17:15:09');
+INSERT INTO `tb_user_info` VALUES (2, '1738252674@qq.com', '客户1', 'https://picx1.zhimg.com/80/v2-624c20a4ba7eadb228240791ec638f8b_720w.webp?source=1940ef5c', 0, '2022-11-10 00:58:48', '2022-11-11 17:18:09');
 INSERT INTO `tb_user_info` VALUES (3, 'test1@mmzd.com', '员工2', 'https://picx1.zhimg.com/80/v2-624c20a4ba7eadb228240791ec638f8b_720w.webp?source=1940ef5c', 0, '2022-11-10 10:42:44', NULL);
 
 -- ----------------------------
@@ -477,15 +498,13 @@ CREATE TABLE `tb_user_role`  (
   `user_id` int NULL DEFAULT NULL COMMENT '用户id',
   `role_id` int NULL DEFAULT NULL COMMENT '角色id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_user_role
 -- ----------------------------
-INSERT INTO `tb_user_role` VALUES (9, 1, 1);
-INSERT INTO `tb_user_role` VALUES (10, 1, 2);
-INSERT INTO `tb_user_role` VALUES (11, 1, 3);
 INSERT INTO `tb_user_role` VALUES (12, 3, 2);
 INSERT INTO `tb_user_role` VALUES (13, 2, 3);
+INSERT INTO `tb_user_role` VALUES (19, 1, 1);
 
 SET FOREIGN_KEY_CHECKS = 1;
